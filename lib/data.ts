@@ -778,6 +778,78 @@ export const approvalRequests = [
   { id: "APR-1039", type: "Invoice void", requestedBy: "Ayesha Khan", amount: 12750, status: "Rejected" },
 ];
 
+export const stockAging = [
+  { part: "Spark Plug — Iridium", age: "0-30 days", qty: 48, value: 88800, status: "Healthy" },
+  { part: "Cabin Air Filter — Civic", age: "31-60 days", qty: 19, value: 79800, status: "Watch" },
+  { part: "Headlight Bulb LED", age: "61-90 days", qty: 8, value: 66400, status: "Slow" },
+  { part: "Wiper Blade 26\"", age: "90+ days", qty: 4, value: 14600, status: "Dead stock" },
+];
+
+export const stockReturns = [
+  { id: "RTN-3S-014", part: "Oil Filter — Civic 1.5T", qty: 3, reason: "Defective", supplier: "Honda Atlas", status: "Approved" },
+  { id: "RTN-2S-006", part: "Brake Pad Set — City", qty: 2, reason: "Wrong fitment", supplier: "Honda Atlas", status: "Pending" },
+];
+
+export const stockAdjustments = [
+  { id: "ADJ-3S-021", part: "Engine Oil 0W-20 (4L)", qty: -2, reason: "Spillage", approvedBy: "Branch Manager", status: "Approved" },
+  { id: "ADJ-2S-009", part: "Wiper Blade 26\"", qty: -1, reason: "Damaged", approvedBy: "Pending", status: "Pending" },
+];
+
+export const reorderSuggestions = [
+  { part: "Engine Oil 0W-20 (4L)", stock: 12, min: 40, suggestedQty: 30, supplier: "Honda Atlas" },
+  { part: "Brake Pad Set — City", stock: 3, min: 20, suggestedQty: 20, supplier: "Honda Atlas" },
+  { part: "CVT Fluid (3.5L)", stock: 9, min: 24, suggestedQty: 15, supplier: "Honda Atlas" },
+];
+
+export const serviceComplaints = [
+  { job: "JC-3S-0842", complaint: "Engine noise at cold start", finding: "Timing chain tensioner worn", technician: "Imran Ali" },
+  { job: "JC-2S-0311", complaint: "AC not cooling", finding: "Compressor clutch faulty", technician: "Naveed Anwar" },
+  { job: "JC-3S-0839", complaint: "Suspension noise", finding: "Front strut mount worn", technician: "Shahid Iqbal" },
+];
+
+export const technicianTime = [
+  { technician: "Imran Ali", job: "JC-3S-0842", operation: "Engine diagnosis", hours: 1.5, status: "Logged" },
+  { technician: "Shahid Iqbal", job: "JC-3S-0839", operation: "Suspension repair", hours: 2.2, status: "Logged" },
+  { technician: "Naveed Anwar", job: "JC-2S-0311", operation: "AC service", hours: 1.1, status: "Logged" },
+];
+
+export const reworkTracking = [
+  { job: "JC-3S-0831", issue: "Brake noise returned", reworkBy: "Imran Ali", status: "Open" },
+  { job: "JC-2S-0302", issue: "AC leak after service", reworkBy: "Naveed Anwar", status: "Closed" },
+];
+
+export const taxInvoices = [
+  { invoice: "INV-3S-2294", fbrRef: "FBR-2026-88421", qr: "Verified", status: "Validated" },
+  { invoice: "INV-2S-0871", fbrRef: "FBR-2026-88422", qr: "Verified", status: "Validated" },
+  { invoice: "INV-3S-2290", fbrRef: "Pending", qr: "Not generated", status: "Pending" },
+];
+
+export const paymentMethods = [
+  { method: "Cash", branch: "3S Main", count: 18, amount: 486000 },
+  { method: "Bank", branch: "3S Main", count: 9, amount: 1284000 },
+  { method: "Card", branch: "2S City", count: 4, amount: 56800 },
+  { method: "Online", branch: "All", count: 6, amount: 318000 },
+];
+
+export const salesTargets = [
+  { consultant: "Fahad Mirza", target: 12, achieved: 10, incentive: 185000 },
+  { consultant: "Hira Sohail", target: 10, achieved: 9, incentive: 142000 },
+  { consultant: "Bilal Rana", target: 8, achieved: 5, incentive: 74000 },
+];
+
+export const featureFlags = [
+  { branch: "3S Main", feature: "Sales module", enabled: true },
+  { branch: "3S Main", feature: "Corporate MOU", enabled: true },
+  { branch: "2S City", feature: "Sales module", enabled: false },
+  { branch: "2S City", feature: "Inter-branch transfer", enabled: true },
+];
+
+export const auditChanges = [
+  { entity: "Price list", before: "PKR 11,200", after: "PKR 11,400", changedBy: "Ahmed Raza", date: "20 Nov" },
+  { entity: "Approval limit", before: "3%", after: "5%", changedBy: "Ahmed Raza", date: "19 Nov" },
+  { entity: "Discount", before: "0%", after: "8.5%", changedBy: "Usman Tariq", date: "21 Nov" },
+];
+
 export const integrations = [
   { name: "Honda Atlas", type: "Parts & warranty", status: "Connected", lastSync: "Today, 07:00", tone: "green" },
   { name: "FBR e-Invoicing", type: "Tax", status: "Connected", lastSync: "Today, 09:30", tone: "green" },

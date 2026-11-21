@@ -9,7 +9,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar, Progress } from "@/components/ui";
-import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback } from "@/lib/data";
+import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback, serviceComplaints, technicianTime, reworkTracking } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function ServicePage() {
@@ -359,6 +359,86 @@ export default function ServicePage() {
                 <p className="mt-1 text-[10px] text-stone-400">Follow-up: {item.followUp}</p>
               </div>
             ))}
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Complaints & findings" subtitle="Customer complaint and technician diagnosis" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Job</th>
+                  <th>Complaint</th>
+                  <th>Finding</th>
+                  <th>Technician</th>
+                </tr>
+              </thead>
+              <tbody>
+                {serviceComplaints.map((item) => (
+                  <tr key={item.job}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.job}</td>
+                    <td className="text-stone-600">{item.complaint}</td>
+                    <td className="text-stone-700">{item.finding}</td>
+                    <td className="text-stone-600">{item.technician}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Technician time & rework" subtitle="Time tracking and rework control" />
+          <div className="space-y-4 p-5">
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Technician</th>
+                    <th>Job</th>
+                    <th>Operation</th>
+                    <th className="text-right">Hours</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {technicianTime.map((item, index) => (
+                    <tr key={index}>
+                      <td className="font-semibold text-stone-800">{item.technician}</td>
+                      <td className="font-mono text-xs">{item.job}</td>
+                      <td className="text-stone-600">{item.operation}</td>
+                      <td className="text-right text-stone-600">{item.hours}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Job</th>
+                    <th>Issue</th>
+                    <th>Rework by</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reworkTracking.map((item, index) => (
+                    <tr key={index}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.job}</td>
+                      <td className="text-stone-600">{item.issue}</td>
+                      <td className="text-stone-600">{item.reworkBy}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </Card>
       </div>

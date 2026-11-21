@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { SalesTargetChart, PipelineChart } from "@/components/charts";
-import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend, leads, testDrives, quotations, pdiDeliveries, exchanges } from "@/lib/data";
+import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend, leads, testDrives, quotations, pdiDeliveries, exchanges, salesTargets } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function SalesPage() {
@@ -303,6 +303,32 @@ export default function SalesPage() {
           </div>
         </Card>
       </div>
+
+      <Card className="mt-5">
+        <CardHeader title="Sales targets & incentives" subtitle="Consultant performance and commission" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Consultant</th>
+                <th className="text-right">Target</th>
+                <th className="text-right">Achieved</th>
+                <th className="text-right">Incentive</th>
+              </tr>
+            </thead>
+            <tbody>
+              {salesTargets.map((item) => (
+                <tr key={item.consultant}>
+                  <td className="font-semibold text-stone-800">{item.consultant}</td>
+                  <td className="text-right text-stone-600">{item.target}</td>
+                  <td className="text-right text-stone-600">{item.achieved}</td>
+                  <td className="text-right font-bold text-stone-800">{formatPKR(item.incentive)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </>
   );
 }

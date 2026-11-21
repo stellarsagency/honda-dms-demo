@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { PartsMovementChart } from "@/components/charts";
-import { partsKpis, lowStockParts, parts, purchaseOrders, partsMovement, partCompatibility, grns, stockTransfers, stockTakes, priceLists } from "@/lib/data";
+import { partsKpis, lowStockParts, parts, purchaseOrders, partsMovement, partCompatibility, grns, stockTransfers, stockTakes, priceLists, stockAging, stockReturns, stockAdjustments, reorderSuggestions } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function PartsPage() {
@@ -308,6 +308,114 @@ export default function PartsPage() {
                       <td className="text-right text-stone-600">{formatPKR(item.cost)}</td>
                       <td className="text-right font-bold text-stone-800">{formatPKR(item.retail)}</td>
                       <td className="text-stone-600">{item.effective}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Stock aging & dead stock" subtitle="Age buckets and valuation" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Part</th>
+                  <th>Age</th>
+                  <th className="text-right">Qty</th>
+                  <th className="text-right">Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stockAging.map((item, index) => (
+                  <tr key={index}>
+                    <td className="font-semibold text-stone-800">{item.part}</td>
+                    <td className="text-stone-600">{item.age}</td>
+                    <td className="text-right text-stone-600">{item.qty}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.value)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Returns, adjustments & reorder" subtitle="Supplier returns, stock adjustments, min/max" />
+          <div className="space-y-4 p-5">
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Return</th>
+                    <th>Part</th>
+                    <th className="text-right">Qty</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stockReturns.map((item) => (
+                    <tr key={item.id}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                      <td className="text-stone-700">{item.part}</td>
+                      <td className="text-right text-stone-600">{item.qty}</td>
+                      <td className="text-stone-600">{item.reason}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Adjustment</th>
+                    <th>Part</th>
+                    <th className="text-right">Qty</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stockAdjustments.map((item) => (
+                    <tr key={item.id}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                      <td className="text-stone-700">{item.part}</td>
+                      <td className="text-right text-stone-600">{item.qty}</td>
+                      <td className="text-stone-600">{item.reason}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Part</th>
+                    <th className="text-right">Stock</th>
+                    <th className="text-right">Min</th>
+                    <th className="text-right">Suggested</th>
+                    <th>Supplier</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reorderSuggestions.map((item, index) => (
+                    <tr key={index}>
+                      <td className="font-semibold text-stone-800">{item.part}</td>
+                      <td className="text-right text-stone-600">{item.stock}</td>
+                      <td className="text-right text-stone-600">{item.min}</td>
+                      <td className="text-right font-bold text-stone-800">{item.suggestedQty}</td>
+                      <td className="text-stone-600">{item.supplier}</td>
                     </tr>
                   ))}
                 </tbody>

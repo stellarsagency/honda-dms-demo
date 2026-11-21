@@ -8,7 +8,7 @@ import {
   Users,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
-import { users, roles, auditLog, integrations, documentVault, notificationTemplates, jobQueue, approvalRequests } from "@/lib/data";
+import { users, roles, auditLog, integrations, documentVault, notificationTemplates, jobQueue, approvalRequests, featureFlags, auditChanges } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function AdminPage() {
@@ -256,6 +256,60 @@ export default function AdminPage() {
                     <td><StatusBadge status={item.status} /></td>
                     <td className="text-right text-stone-600">{item.retries}</td>
                     <td className="text-stone-600">{item.lastRun}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Feature flags" subtitle="Branch-level module enablement" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Branch</th>
+                  <th>Feature</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {featureFlags.map((item, index) => (
+                  <tr key={index}>
+                    <td className="text-stone-600">{item.branch}</td>
+                    <td className="font-semibold text-stone-800">{item.feature}</td>
+                    <td><StatusBadge status={item.enabled ? "Active" : "Disabled"} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Audit change trail" subtitle="Before/after values for sensitive changes" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Entity</th>
+                  <th>Before</th>
+                  <th>After</th>
+                  <th>Changed by</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {auditChanges.map((item, index) => (
+                  <tr key={index}>
+                    <td className="font-semibold text-stone-800">{item.entity}</td>
+                    <td className="text-stone-600">{item.before}</td>
+                    <td className="font-bold text-stone-800">{item.after}</td>
+                    <td className="text-stone-600">{item.changedBy}</td>
+                    <td className="text-stone-600">{item.date}</td>
                   </tr>
                 ))}
               </tbody>

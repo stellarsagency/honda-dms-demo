@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { CashflowChart, AgingChart } from "@/components/charts";
-import { accountsKpis, invoices, aging, cashflow, receipts, paymentAllocations, creditNotes, reminderLog, promiseToPay, cashierReconciliation } from "@/lib/data";
+import { accountsKpis, invoices, aging, cashflow, receipts, paymentAllocations, creditNotes, reminderLog, promiseToPay, cashierReconciliation, taxInvoices, paymentMethods } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function AccountsPage() {
@@ -325,6 +325,60 @@ export default function AccountsPage() {
           </table>
         </div>
       </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="FBR tax invoices" subtitle="QR/reference and validation status" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Invoice</th>
+                  <th>FBR reference</th>
+                  <th>QR</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {taxInvoices.map((item) => (
+                  <tr key={item.invoice}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.invoice}</td>
+                    <td className="font-mono text-xs text-stone-500">{item.fbrRef}</td>
+                    <td className="text-stone-600">{item.qr}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Payment methods & day-end" subtitle="Cash, bank, card, online and reconciliation" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Branch</th>
+                  <th className="text-right">Count</th>
+                  <th className="text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paymentMethods.map((item, index) => (
+                  <tr key={index}>
+                    <td className="font-semibold text-stone-800">{item.method}</td>
+                    <td className="text-stone-600">{item.branch}</td>
+                    <td className="text-right text-stone-600">{item.count}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
     </>
   );
 }
