@@ -213,12 +213,12 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 function BranchSelector() {
   const { branchId, setBranchId, branch } = useBranch();
   return (
-    <label className="relative hidden items-center sm:flex">
+    <label className="relative flex items-center">
       <Building2 className="pointer-events-none absolute left-3 h-4 w-4 text-slate-400" />
       <select
         value={branchId}
         onChange={(event) => setBranchId(event.target.value as Branch["id"])}
-        className="h-9 appearance-none rounded-xl border border-slate-200 bg-white pl-9 pr-9 text-xs font-semibold text-slate-700 shadow-sm outline-none transition hover:border-slate-300 focus:border-honda-400 focus:ring-4 focus:ring-honda-500/10"
+        className="h-9 w-32 appearance-none rounded-xl border border-slate-200 bg-white pl-9 pr-8 text-xs font-semibold text-slate-700 shadow-sm outline-none transition hover:border-slate-300 focus:border-honda-400 focus:ring-4 focus:ring-honda-500/10 sm:w-auto sm:pr-9"
         aria-label="Switch branch"
       >
         {branches.map((item) => (
