@@ -14,10 +14,10 @@ export const branches: Branch[] = [
 ];
 
 export const currentUser = {
-  name: "Ahmed Raza",
-  role: "Group Administrator",
-  email: "admin@demohonda.pk",
-  initials: "AR",
+  name: "Zeeshan Awan",
+  role: "Owner / Group Administrator",
+  email: "zeeshan@demohonda.pk",
+  initials: "ZA",
 };
 
 export const notifications = [
@@ -534,7 +534,7 @@ export const departmentRevenue = [
 ];
 
 export const users = [
-  { name: "Ahmed Raza", email: "admin@demohonda.pk", role: "Group Administrator", branch: "All Branches", status: "Active", lastLogin: "Today, 08:42", twoFA: true },
+  { name: "Zeeshan Awan", email: "zeeshan@demohonda.pk", role: "Owner / Group Administrator", branch: "All Branches", status: "Active", lastLogin: "Today, 08:42", twoFA: true },
   { name: "Usman Tariq", email: "usman@demohonda.pk", role: "Branch Manager", branch: "3S Main", status: "Active", lastLogin: "Today, 09:05", twoFA: true },
   { name: "Adeel Raza", email: "adeel@demohonda.pk", role: "Service Advisor", branch: "2S City", status: "Active", lastLogin: "Today, 08:58", twoFA: false },
   { name: "Ayesha Khan", email: "ayesha@demohonda.pk", role: "Service Advisor", branch: "3S Main", status: "Active", lastLogin: "Today, 09:12", twoFA: false },

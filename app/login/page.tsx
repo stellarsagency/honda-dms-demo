@@ -64,7 +64,7 @@ export default function LoginPage() {
                 <label className="field-label">Email address</label>
                 <div className="relative">
                   <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  <input className="field pl-10" defaultValue="admin@demohonda.pk" />
+                  <input className="field pl-10" defaultValue="zeeshan@demohonda.pk" />
                 </div>
               </div>
               <div>
@@ -99,7 +99,7 @@ export default function LoginPage() {
               <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Demo accounts</p>
               <div className="mt-3 space-y-2 text-xs">
                 {[
-                  { email: "admin@demohonda.pk", role: "Group Administrator" },
+                  { email: "zeeshan@demohonda.pk", role: "Owner / Group Administrator" },
                   { email: "usman@demohonda.pk", role: "Branch Manager · 3S" },
                   { email: "adeel@demohonda.pk", role: "Service Advisor · 2S" },
                 ].map((account) => (
