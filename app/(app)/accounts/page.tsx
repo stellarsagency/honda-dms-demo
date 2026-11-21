@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { CashflowChart, AgingChart } from "@/components/charts";
-import { accountsKpis, invoices, aging, cashflow } from "@/lib/data";
+import { accountsKpis, invoices, aging, cashflow, receipts, paymentAllocations, creditNotes, reminderLog, promiseToPay, cashierReconciliation } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function AccountsPage() {
@@ -157,6 +157,174 @@ export default function AccountsPage() {
           </div>
         </Card>
       </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Receipts" subtitle="Cash, bank, card, cheque, online, credit" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Receipt</th>
+                  <th>Customer</th>
+                  <th>Method</th>
+                  <th className="text-right">Amount</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {receipts.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-semibold text-stone-800">{item.customer}</td>
+                    <td className="text-stone-600">{item.method}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td className="text-stone-600">{item.date}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Payment allocation" subtitle="One receipt to one or many invoices" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Receipt</th>
+                  <th>Invoices</th>
+                  <th className="text-right">Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paymentAllocations.map((item) => (
+                  <tr key={item.receipt}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.receipt}</td>
+                    <td className="font-mono text-xs text-stone-500">{item.invoices}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Credit notes" subtitle="Approval-based adjustments" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Credit note</th>
+                  <th>Invoice</th>
+                  <th>Reason</th>
+                  <th className="text-right">Amount</th>
+                  <th>Approval</th>
+                </tr>
+              </thead>
+              <tbody>
+                {creditNotes.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.invoice}</td>
+                    <td className="text-stone-600">{item.reason}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td><StatusBadge status={item.approval} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Reminders & promise to pay" subtitle="WhatsApp/SMS/email, escalation, follow-up" />
+          <div className="space-y-4 p-5">
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Channel</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reminderLog.map((item, index) => (
+                    <tr key={index}>
+                      <td className="font-semibold text-stone-800">{item.customer}</td>
+                      <td className="text-stone-600">{item.channel}</td>
+                      <td className="text-stone-600">{item.date}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th className="text-right">Amount</th>
+                    <th>Promise date</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {promiseToPay.map((item, index) => (
+                    <tr key={index}>
+                      <td className="font-semibold text-stone-800">{item.customer}</td>
+                      <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                      <td className="text-stone-600">{item.promiseDate}</td>
+                      <td className="text-stone-600">{item.owner}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="mt-5">
+        <CardHeader title="Cashier reconciliation" subtitle="Daily cash, bank and variance" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Branch</th>
+                <th className="text-right">Cash</th>
+                <th className="text-right">Bank</th>
+                <th className="text-right">Variance</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cashierReconciliation.map((item) => (
+                <tr key={item.branch}>
+                  <td className="font-semibold text-stone-800">{item.branch}</td>
+                  <td className="text-right text-stone-600">{formatPKR(item.cash)}</td>
+                  <td className="text-right text-stone-600">{formatPKR(item.bank)}</td>
+                  <td className="text-right font-bold text-stone-800">{formatPKR(item.variance)}</td>
+                  <td><StatusBadge status={item.status} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </>
   );
 }

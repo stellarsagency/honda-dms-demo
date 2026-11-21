@@ -595,6 +595,189 @@ export const duplicateCandidates = [
   { recordA: "Packages Ltd · NTN 8765432-1", recordB: "Packages Limited · NTN 8765432-1", match: "NTN", confidence: "98%", action: "Review" },
 ];
 
+export const serviceAppointments = [
+  { id: "APT-3S-0184", customer: "Bilal Ahmed", vehicle: "Civic 2022", date: "21 Nov", kmDue: 10000, type: "Periodic service", advisor: "Usman Tariq", status: "Checked-in" },
+  { id: "APT-2S-0091", customer: "Sana Malik", vehicle: "City 2021", date: "21 Nov", kmDue: 45000, type: "AC performance", advisor: "Adeel Raza", status: "In Progress" },
+  { id: "APT-3S-0185", customer: "Hamza Sheikh", vehicle: "BR-V 2023", date: "21 Nov", kmDue: 15000, type: "Periodic service", advisor: "Usman Tariq", status: "Waiting" },
+  { id: "APT-3S-0186", customer: "Mariam Javed", vehicle: "Civic 2024", date: "21 Nov", kmDue: 1000, type: "First free service", advisor: "Ayesha Khan", status: "Confirmed" },
+];
+
+export const preInspections = [
+  { id: "PI-3S-0842", job: "JC-3S-0842", odometer: 18420, fuel: "3/4", valuables: "Phone charger", photos: 6, notes: "Front bumper scratch noted" },
+  { id: "PI-3S-0843", job: "JC-3S-0843", odometer: 4120, fuel: "Full", valuables: "None", photos: 4, notes: "New vehicle delivery inspection" },
+  { id: "PI-2S-0311", job: "JC-2S-0311", odometer: 42110, fuel: "1/2", valuables: "Sunglasses", photos: 5, notes: "AC noise reported" },
+];
+
+export const estimates = [
+  { id: "EST-3S-0842", job: "JC-3S-0842", labour: 9500, parts: 14200, consumables: 2800, sublet: 0, total: 26500, approval: "Pending" },
+  { id: "EST-3S-0839", job: "JC-3S-0839", labour: 12000, parts: 31200, consumables: 4500, sublet: 6500, total: 54200, approval: "Approved" },
+  { id: "EST-2S-0311", job: "JC-2S-0311", labour: 6000, parts: 6200, consumables: 1200, sublet: 800, total: 14200, approval: "Approved" },
+];
+
+export const technicianProductivity = [
+  { name: "Imran Ali", jobs: 14, hours: 96, efficiency: "92%", branch: "3S Main" },
+  { name: "Shahid Iqbal", jobs: 11, hours: 84, efficiency: "88%", branch: "3S Main" },
+  { name: "Naveed Anwar", jobs: 9, hours: 72, efficiency: "85%", branch: "2S City" },
+  { name: "Kashif Mehmood", jobs: 7, hours: 58, efficiency: "81%", branch: "2S City" },
+];
+
+export const qualityChecks = [
+  { id: "QC-3S-0840", job: "JC-3S-0840", checklist: "18/18", result: "Passed", inspector: "Usman Tariq", rework: "No" },
+  { id: "QC-3S-0838", job: "JC-3S-0838", checklist: "16/18", result: "Passed with note", inspector: "Ayesha Khan", rework: "No" },
+  { id: "QC-2S-0310", job: "JC-2S-0310", checklist: "17/18", result: "Passed", inspector: "Adeel Raza", rework: "No" },
+];
+
+export const gatePasses = [
+  { id: "GP-3S-0779", job: "JC-3S-0840", invoice: "INV-3S-2295", payment: "Paid", status: "Released" },
+  { id: "GP-3S-0778", job: "JC-3S-0838", invoice: "INV-3S-2296", payment: "Pending", status: "Hold" },
+  { id: "GP-2S-0412", job: "JC-2S-0310", invoice: "INV-2S-0872", payment: "Paid", status: "Released" },
+];
+
+export const warrantyClaims = [
+  { id: "WC-3S-012", job: "JC-3S-0831", part: "AC compressor", claimNo: "HON-WC-441", status: "Submitted" },
+  { id: "WC-2S-004", job: "JC-2S-0302", part: "Transmission sensor", claimNo: "HON-WC-442", status: "Approved" },
+];
+
+export const serviceFeedback = [
+  { id: "FB-3S-0840", customer: "Hamza Sheikh", rating: 5, comments: "Excellent service", followUp: "None" },
+  { id: "FB-2S-0310", customer: "Faisal Nawaz", rating: 4, comments: "Good, slight delay", followUp: "Manager call" },
+  { id: "FB-3S-0838", customer: "Nida Aslam", rating: 3, comments: "Battery replacement took longer", followUp: "Service advisor call" },
+];
+
+export const leads = [
+  { id: "LEAD-3S-441", customer: "Ali Hassan", source: "Walk-in", interest: "Civic RS Turbo", assigned: "Fahad Mirza", status: "Negotiation", nextAction: "Offer finance" },
+  { id: "LEAD-3S-442", customer: "Fatima Zahra", source: "Website", interest: "City 1.5 CVT", assigned: "Hira Sohail", status: "Test Drive", nextAction: "Follow-up call" },
+  { id: "LEAD-3S-443", customer: "Omar Farooq", source: "Referral", interest: "HR-V VTi", assigned: "Fahad Mirza", status: "Booked", nextAction: "Delivery planning" },
+  { id: "LEAD-3S-444", customer: "Mehwish Iqbal", source: "Facebook", interest: "BR-V S", assigned: "Hira Sohail", status: "Contacted", nextAction: "Send quotation" },
+];
+
+export const testDrives = [
+  { id: "TD-3S-221", customer: "Fatima Zahra", vehicle: "City 1.5 CVT", date: "20 Nov", odometer: "12 km", feedback: "Positive", consultant: "Hira Sohail" },
+  { id: "TD-3S-222", customer: "Ali Hassan", vehicle: "Civic RS Turbo", date: "19 Nov", odometer: "18 km", feedback: "Very positive", consultant: "Fahad Mirza" },
+  { id: "TD-3S-223", customer: "Taimoor Khan", vehicle: "Civic Oriel", date: "18 Nov", odometer: "9 km", feedback: "Price concern", consultant: "Bilal Rana" },
+];
+
+export const quotations = [
+  { id: "QTN-3S-318", customer: "Ali Hassan", model: "Civic RS Turbo", amount: 8420000, validity: "30 Nov", status: "Sent" },
+  { id: "QTN-3S-319", customer: "Fatima Zahra", model: "City 1.5 CVT", amount: 5090000, validity: "28 Nov", status: "Accepted" },
+  { id: "QTN-3S-320", customer: "Mehwish Iqbal", model: "BR-V S", amount: 5820000, validity: "02 Dec", status: "Draft" },
+];
+
+export const pdiDeliveries = [
+  { id: "PDI-3S-119", booking: "BKG-3S-1284", pdi: "Passed", deliveryDate: "20 Nov", gatePass: "GP-3S-0780", status: "Delivered" },
+  { id: "PDI-3S-120", booking: "BKG-3S-1285", pdi: "Passed", deliveryDate: "22 Nov", gatePass: "Pending", status: "Ready" },
+  { id: "PDI-3S-121", booking: "BKG-3S-1286", pdi: "In progress", deliveryDate: "24 Nov", gatePass: "Pending", status: "PDI" },
+];
+
+export const exchanges = [
+  { id: "EX-3S-044", customer: "Omar Farooq", offered: "City 2018", evaluated: 2450000, status: "Approved" },
+  { id: "EX-3S-045", customer: "Taimoor Khan", offered: "Cultus 2019", evaluated: 1980000, status: "Pending" },
+];
+
+export const partCompatibility = [
+  { part: "Oil Filter — Civic 1.5T", models: "Civic 1.5T, Civic RS", supersession: "HON-OF-15T → HON-OF-15T-R2", status: "Active" },
+  { part: "Brake Pad Set — City", models: "City 1.2, City 1.5", supersession: "HON-BP-CITY → HON-BP-CITY-NEW", status: "Active" },
+  { part: "Air Filter — BR-V", models: "BR-V S, BR-V i-VTEC", supersession: "HON-AF-BRV", status: "Active" },
+];
+
+export const grns = [
+  { id: "GRN-3S-014", po: "PO-3S-0291", supplier: "Honda Atlas", items: 14, received: "21 Nov", status: "Received" },
+  { id: "GRN-3S-015", po: "PO-3S-0289", supplier: "Honda Atlas", items: 22, received: "18 Nov", status: "Partial" },
+  { id: "GRN-2S-009", po: "PO-2S-0144", supplier: "Honda Atlas", items: 9, received: "20 Nov", status: "Received" },
+];
+
+export const stockTransfers = [
+  { id: "ST-3S-2S-014", from: "3S Main", to: "2S City", items: 6, status: "In transit", dispatch: "21 Nov", receive: "Pending" },
+  { id: "ST-2S-3S-009", from: "2S City", to: "3S Main", items: 3, status: "Received", dispatch: "19 Nov", receive: "20 Nov" },
+];
+
+export const stockTakes = [
+  { id: "STK-3S-018", branch: "3S Main", date: "15 Nov", variance: "PKR 18,400", status: "Approved" },
+  { id: "STK-2S-007", branch: "2S City", date: "14 Nov", variance: "PKR 6,200", status: "Pending approval" },
+];
+
+export const priceLists = [
+  { branch: "3S Main", part: "Engine Oil 0W-20 (4L)", cost: 9200, retail: 11400, effective: "01 Nov 2026" },
+  { branch: "2S City", part: "Engine Oil 0W-20 (4L)", cost: 9200, retail: 11600, effective: "01 Nov 2026" },
+  { branch: "3S Main", part: "Brake Pad Set — City", cost: 7800, retail: 9800, effective: "01 Nov 2026" },
+];
+
+export const mouRates = [
+  { company: "Meezan Bank Ltd.", labourRate: "PKR 2,400/hr", partsDiscount: "12%", creditTerms: "45 days", status: "Active" },
+  { company: "Packages Ltd.", labourRate: "PKR 2,200/hr", partsDiscount: "10%", creditTerms: "30 days", status: "Renewal due" },
+  { company: "Nishat Mills", labourRate: "PKR 2,300/hr", partsDiscount: "8%", creditTerms: "60 days", status: "Active" },
+];
+
+export const workOrderItems = [
+  { id: "WOI-3S-4412-1", wo: "WO-3S-4412", vehicle: "Civic 2022", service: "Fleet service", amount: 62000, status: "In progress" },
+  { id: "WOI-3S-4412-2", wo: "WO-3S-4412", vehicle: "City 2021", service: "Periodic maintenance", amount: 48000, status: "Completed" },
+  { id: "WOI-2S-1187-1", wo: "WO-2S-1187", vehicle: "BR-V 2023", service: "Periodic maintenance", amount: 44000, status: "Approved" },
+];
+
+export const corporateStatements = [
+  { company: "Meezan Bank Ltd.", billed: 1840000, collected: 1200000, balance: 640000, aging: "0-15 days" },
+  { company: "Packages Ltd.", billed: 2960000, collected: 2100000, balance: 860000, aging: "16-30 days" },
+  { company: "Descon Engineering", billed: 1720000, collected: 1500000, balance: 220000, aging: "0-15 days" },
+];
+
+export const receipts = [
+  { id: "RCPT-3S-0912", customer: "Bilal Ahmed", method: "Cash", amount: 28500, date: "21 Nov", status: "Posted" },
+  { id: "RCPT-3S-0911", customer: "Packages Ltd.", method: "Bank", amount: 425000, date: "20 Nov", status: "Posted" },
+  { id: "RCPT-2S-0318", customer: "Sana Malik", method: "Card", amount: 14200, date: "21 Nov", status: "Posted" },
+];
+
+export const paymentAllocations = [
+  { receipt: "RCPT-3S-0911", invoices: "INV-3S-2291", amount: 425000, status: "Allocated" },
+  { receipt: "RCPT-3S-0912", invoices: "INV-3S-2294", amount: 28500, status: "Allocated" },
+];
+
+export const creditNotes = [
+  { id: "CN-3S-004", invoice: "INV-3S-2288", reason: "Parts warranty adjustment", amount: 9200, approval: "Approved" },
+  { id: "CN-2S-002", invoice: "INV-2S-0865", reason: "Service rework", amount: 4800, approval: "Pending" },
+];
+
+export const reminderLog = [
+  { customer: "Faisal Nawaz", channel: "WhatsApp", date: "21 Nov", status: "Sent" },
+  { customer: "Packages Ltd.", channel: "Email", date: "20 Nov", status: "Sent" },
+  { customer: "Descon Engineering", channel: "SMS", date: "19 Nov", status: "Failed" },
+];
+
+export const promiseToPay = [
+  { customer: "Omar Farooq", amount: 2000000, promiseDate: "25 Nov", owner: "Fahad Mirza", status: "Open" },
+  { customer: "Nishat Mills", amount: 342000, promiseDate: "23 Nov", owner: "Ahmed Raza", status: "Open" },
+];
+
+export const cashierReconciliation = [
+  { branch: "3S Main", cash: 486000, bank: 1284000, variance: 0, status: "Balanced" },
+  { branch: "2S City", cash: 142000, bank: 318000, variance: 2400, status: "Variance" },
+];
+
+export const documentVault = [
+  { id: "DOC-001", name: "Meezan Bank MOU 2025", type: "MOU", branch: "All", uploadedBy: "Ahmed Raza", hash: "sha256:8f3a..." },
+  { id: "DOC-002", name: "Signed Job Card JC-3S-0842", type: "Job card", branch: "3S Main", uploadedBy: "Ayesha Khan", hash: "sha256:9c12..." },
+  { id: "DOC-003", name: "Gate Pass GP-3S-0778", type: "Gate pass", branch: "3S Main", uploadedBy: "Security Desk", hash: "sha256:11ab..." },
+];
+
+export const notificationTemplates = [
+  { name: "Payment reminder", channel: "WhatsApp", template: "Dear {{customer}}, invoice {{invoice}} of PKR {{amount}} is due." },
+  { name: "Service due", channel: "SMS", template: "Your Honda {{model}} is due for service at {{km}} km." },
+  { name: "Job card update", channel: "WhatsApp", template: "Your job card {{job}} is now {{status}}." },
+];
+
+export const jobQueue = [
+  { job: "Reminder batch", status: "Completed", retries: 0, lastRun: "Today 08:00" },
+  { job: "Aging snapshot", status: "Completed", retries: 0, lastRun: "Today 02:00" },
+  { job: "Leakage report", status: "Completed", retries: 0, lastRun: "Today 06:00" },
+  { job: "WhatsApp retry", status: "Running", retries: 2, lastRun: "Today 10:15" },
+];
+
+export const approvalRequests = [
+  { id: "APR-1042", type: "Discount approval", requestedBy: "Usman Tariq", amount: 4850, status: "Pending" },
+  { id: "APR-1041", type: "Below-cost sale", requestedBy: "Adeel Raza", amount: 9200, status: "Approved" },
+  { id: "APR-1040", type: "Stock adjustment", requestedBy: "Sajid Hussain", amount: 12400, status: "Pending" },
+  { id: "APR-1039", type: "Invoice void", requestedBy: "Ayesha Khan", amount: 12750, status: "Rejected" },
+];
+
 export const integrations = [
   { name: "Honda Atlas", type: "Parts & warranty", status: "Connected", lastSync: "Today, 07:00", tone: "green" },
   { name: "FBR e-Invoicing", type: "Tax", status: "Connected", lastSync: "Today, 09:30", tone: "green" },

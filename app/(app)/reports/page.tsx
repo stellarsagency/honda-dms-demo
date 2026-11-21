@@ -145,6 +145,43 @@ export default function ReportsPage() {
           );
         })}
       </div>
+
+      <Card className="mt-5">
+        <CardHeader title="Leakage report matrix" subtitle="Exception reports and control checks" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Report</th>
+                <th>Purpose</th>
+                <th>Frequency</th>
+                <th>Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { report: "Discount by advisor", purpose: "Who is giving away margin", frequency: "Daily", owner: "Branch Manager" },
+                { report: "Below-cost sales", purpose: "Parts/labour sold under cost", frequency: "Daily", owner: "Parts Manager" },
+                { report: "Parts issued without job card", purpose: "Manual issues", frequency: "Daily", owner: "Parts Manager" },
+                { report: "Job cards closed without invoice", purpose: "Revenue leakage", frequency: "Daily", owner: "Service Advisor" },
+                { report: "Gate passes without payment", purpose: "Vehicle release control", frequency: "Daily", owner: "Security Desk" },
+                { report: "Stock variance", purpose: "System vs physical", frequency: "Weekly", owner: "Parts Manager" },
+                { report: "Warranty consumption vs claims", purpose: "Claim recovery", frequency: "Monthly", owner: "Service Manager" },
+                { report: "Corporate credit breach", purpose: "Credit limit control", frequency: "Daily", owner: "Corporate Desk" },
+                { report: "Cancelled/amended invoices", purpose: "Financial audit trail", frequency: "Daily", owner: "Accounts" },
+                { report: "Branch comparison", purpose: "Performance comparison", frequency: "Monthly", owner: "Group Admin" },
+              ].map((item) => (
+                <tr key={item.report}>
+                  <td className="font-semibold text-stone-800">{item.report}</td>
+                  <td className="text-stone-600">{item.purpose}</td>
+                  <td><StatusBadge status={item.frequency} /></td>
+                  <td className="text-stone-600">{item.owner}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </>
   );
 }

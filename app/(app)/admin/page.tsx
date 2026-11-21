@@ -8,7 +8,8 @@ import {
   Users,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
-import { users, roles, auditLog, integrations } from "@/lib/data";
+import { users, roles, auditLog, integrations, documentVault, notificationTemplates, jobQueue, approvalRequests } from "@/lib/data";
+import { formatPKR } from "@/lib/utils";
 
 export default function AdminPage() {
   const activeUsers = users.filter((user) => user.status === "Active").length;
@@ -156,6 +157,109 @@ export default function AdminPage() {
                 <StatusBadge status={integration.status} />
               </div>
             ))}
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Document vault" subtitle="MOU, job card, gate pass, delivery note with hash/QR" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Document</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Branch</th>
+                  <th>Uploaded by</th>
+                  <th>Hash</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documentVault.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-semibold text-stone-800">{item.name}</td>
+                    <td className="text-stone-600">{item.type}</td>
+                    <td className="text-stone-600">{item.branch}</td>
+                    <td className="text-stone-600">{item.uploadedBy}</td>
+                    <td className="font-mono text-xs text-stone-500">{item.hash}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Approval requests" subtitle="Segregation of duties: creator ≠ approver" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Request</th>
+                  <th>Type</th>
+                  <th>Requested by</th>
+                  <th className="text-right">Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {approvalRequests.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="text-stone-600">{item.type}</td>
+                    <td className="font-semibold text-stone-800">{item.requestedBy}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Notification templates" subtitle="WhatsApp, SMS, email, in-app" />
+          <div className="space-y-3 p-5">
+            {notificationTemplates.map((item) => (
+              <div key={item.name} className="rounded-2xl border border-stone-200/80 bg-stone-50/70 p-4">
+                <div className="flex items-center justify-between">
+                  <p className="text-[12px] font-bold text-stone-800">{item.name}</p>
+                  <StatusBadge status={item.channel} />
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-stone-500">{item.template}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Job queue monitor" subtitle="Reminders, reports, retries" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Job</th>
+                  <th>Status</th>
+                  <th className="text-right">Retries</th>
+                  <th>Last run</th>
+                </tr>
+              </thead>
+              <tbody>
+                {jobQueue.map((item) => (
+                  <tr key={item.job}>
+                    <td className="font-semibold text-stone-800">{item.job}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                    <td className="text-right text-stone-600">{item.retries}</td>
+                    <td className="text-stone-600">{item.lastRun}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Card>
       </div>

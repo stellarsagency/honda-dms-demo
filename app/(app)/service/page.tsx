@@ -9,7 +9,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar, Progress } from "@/components/ui";
-import { serviceKpis, workshopBays, jobCards, appointments } from "@/lib/data";
+import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function ServicePage() {
@@ -151,6 +151,217 @@ export default function ServicePage() {
           </table>
         </div>
       </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Service appointments" subtitle="Due by date and kilometres" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Appointment</th>
+                  <th>Customer / Vehicle</th>
+                  <th>Due</th>
+                  <th>Type</th>
+                  <th>Advisor</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {serviceAppointments.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td>
+                      <p className="font-semibold text-stone-800">{item.customer}</p>
+                      <p className="text-[10px] text-stone-400">{item.vehicle}</p>
+                    </td>
+                    <td className="text-stone-600">{item.date} · {item.kmDue.toLocaleString("en-PK")} km</td>
+                    <td className="text-stone-600">{item.type}</td>
+                    <td className="text-stone-600">{item.advisor}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Pre-inspection checklist" subtitle="Odometer, fuel, valuables, photos" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Inspection</th>
+                  <th>Job</th>
+                  <th>Odometer</th>
+                  <th>Fuel</th>
+                  <th>Valuables</th>
+                  <th>Photos</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {preInspections.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.job}</td>
+                    <td className="text-stone-600">{item.odometer.toLocaleString("en-PK")} km</td>
+                    <td className="text-stone-600">{item.fuel}</td>
+                    <td className="text-stone-600">{item.valuables}</td>
+                    <td className="text-right font-medium text-stone-700">{item.photos}</td>
+                    <td className="text-stone-600">{item.notes}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-7">
+          <CardHeader title="Estimates" subtitle="Labour, parts, consumables, sublet and approval" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Estimate</th>
+                  <th>Job</th>
+                  <th className="text-right">Labour</th>
+                  <th className="text-right">Parts</th>
+                  <th className="text-right">Consumables</th>
+                  <th className="text-right">Sublet</th>
+                  <th className="text-right">Total</th>
+                  <th>Approval</th>
+                </tr>
+              </thead>
+              <tbody>
+                {estimates.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.job}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.labour)}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.parts)}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.consumables)}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.sublet)}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.total)}</td>
+                    <td><StatusBadge status={item.approval} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-5">
+          <CardHeader title="Technician productivity" subtitle="Jobs, hours and efficiency" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Technician</th>
+                  <th>Branch</th>
+                  <th className="text-right">Jobs</th>
+                  <th className="text-right">Hours</th>
+                  <th>Efficiency</th>
+                </tr>
+              </thead>
+              <tbody>
+                {technicianProductivity.map((item) => (
+                  <tr key={item.name}>
+                    <td className="font-semibold text-stone-800">{item.name}</td>
+                    <td className="text-stone-600">{item.branch}</td>
+                    <td className="text-right text-stone-600">{item.jobs}</td>
+                    <td className="text-right text-stone-600">{item.hours}</td>
+                    <td><StatusBadge status={item.efficiency >= "90%" ? "Active" : "Medium"} /> <span className="ml-1 text-stone-600">{item.efficiency}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-4">
+          <CardHeader title="Quality control" subtitle="Checklist and rework" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>QC</th>
+                  <th>Job</th>
+                  <th>Checklist</th>
+                  <th>Result</th>
+                  <th>Inspector</th>
+                  <th>Rework</th>
+                </tr>
+              </thead>
+              <tbody>
+                {qualityChecks.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.job}</td>
+                    <td className="text-stone-600">{item.checklist}</td>
+                    <td><StatusBadge status={item.result === "Passed" ? "Completed" : "Partial"} /></td>
+                    <td className="text-stone-600">{item.inspector}</td>
+                    <td className="text-stone-600">{item.rework}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-4">
+          <CardHeader title="Gate passes" subtitle="Linked to invoice/payment" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Gate pass</th>
+                  <th>Job</th>
+                  <th>Invoice</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gatePasses.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.job}</td>
+                    <td className="font-mono text-xs">{item.invoice}</td>
+                    <td><StatusBadge status={item.payment} /></td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-4">
+          <CardHeader title="Warranty & feedback" subtitle="Claims and CSAT" />
+          <div className="space-y-3 p-5">
+            {warrantyClaims.map((item) => (
+              <div key={item.id} className="rounded-2xl border border-stone-200/80 bg-stone-50/70 p-3">
+                <p className="text-[12px] font-bold text-stone-800">{item.id} · {item.part}</p>
+                <p className="text-[10px] text-stone-500">{item.job} · Claim {item.claimNo}</p>
+                <div className="mt-2"><StatusBadge status={item.status} /></div>
+              </div>
+            ))}
+            {serviceFeedback.map((item) => (
+              <div key={item.id} className="rounded-2xl border border-stone-200/80 bg-stone-50/70 p-3">
+                <p className="text-[12px] font-bold text-stone-800">{item.customer} · {item.rating}/5</p>
+                <p className="text-[10px] text-stone-500">{item.comments}</p>
+                <p className="mt-1 text-[10px] text-stone-400">Follow-up: {item.followUp}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
     </>
   );
 }

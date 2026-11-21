@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { SalesTargetChart, PipelineChart } from "@/components/charts";
-import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend } from "@/lib/data";
+import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend, leads, testDrives, quotations, pdiDeliveries, exchanges } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function SalesPage() {
@@ -151,6 +151,158 @@ export default function SalesPage() {
           </table>
         </div>
       </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-7">
+          <CardHeader title="Leads & follow-ups" subtitle="Source, interest, assignment and next action" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Lead</th>
+                  <th>Customer</th>
+                  <th>Source</th>
+                  <th>Interest</th>
+                  <th>Assigned</th>
+                  <th>Status</th>
+                  <th>Next action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leads.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-semibold text-stone-800">{item.customer}</td>
+                    <td className="text-stone-600">{item.source}</td>
+                    <td className="text-stone-600">{item.interest}</td>
+                    <td className="text-stone-600">{item.assigned}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                    <td className="text-stone-600">{item.nextAction}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-5">
+          <CardHeader title="Test drives" subtitle="Schedule, vehicle, feedback" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Test drive</th>
+                  <th>Customer</th>
+                  <th>Vehicle</th>
+                  <th>Date</th>
+                  <th>Odometer</th>
+                  <th>Feedback</th>
+                </tr>
+              </thead>
+              <tbody>
+                {testDrives.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-semibold text-stone-800">{item.customer}</td>
+                    <td className="text-stone-600">{item.vehicle}</td>
+                    <td className="text-stone-600">{item.date}</td>
+                    <td className="text-stone-600">{item.odometer}</td>
+                    <td className="text-stone-600">{item.feedback}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Quotations" subtitle="Accessories, discounts, taxes, validity" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Quotation</th>
+                  <th>Customer</th>
+                  <th>Model</th>
+                  <th className="text-right">Amount</th>
+                  <th>Validity</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {quotations.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-semibold text-stone-800">{item.customer}</td>
+                    <td className="text-stone-600">{item.model}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td className="text-stone-600">{item.validity}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="PDI, delivery & exchange" subtitle="Pre-delivery inspection, gate pass, used-car evaluation" />
+          <div className="space-y-4 p-5">
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>PDI</th>
+                    <th>Booking</th>
+                    <th>PDI status</th>
+                    <th>Delivery</th>
+                    <th>Gate pass</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pdiDeliveries.map((item) => (
+                    <tr key={item.id}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                      <td className="font-mono text-xs">{item.booking}</td>
+                      <td><StatusBadge status={item.pdi} /></td>
+                      <td className="text-stone-600">{item.deliveryDate}</td>
+                      <td className="font-mono text-xs">{item.gatePass}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Exchange</th>
+                    <th>Customer</th>
+                    <th>Offered vehicle</th>
+                    <th className="text-right">Evaluated</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {exchanges.map((item) => (
+                    <tr key={item.id}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                      <td className="font-semibold text-stone-800">{item.customer}</td>
+                      <td className="text-stone-600">{item.offered}</td>
+                      <td className="text-right font-bold text-stone-800">{formatPKR(item.evaluated)}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Card>
+      </div>
     </>
   );
 }

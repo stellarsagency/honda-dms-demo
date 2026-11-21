@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { PartsMovementChart } from "@/components/charts";
-import { partsKpis, lowStockParts, parts, purchaseOrders, partsMovement } from "@/lib/data";
+import { partsKpis, lowStockParts, parts, purchaseOrders, partsMovement, partCompatibility, grns, stockTransfers, stockTakes, priceLists } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function PartsPage() {
@@ -170,6 +170,152 @@ export default function PartsPage() {
           </table>
         </div>
       </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Part compatibility & supersession" subtitle="Model fitment and supersession chain" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Part</th>
+                  <th>Compatible models</th>
+                  <th>Supersession</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {partCompatibility.map((item) => (
+                  <tr key={item.part}>
+                    <td className="font-semibold text-stone-800">{item.part}</td>
+                    <td className="text-stone-600">{item.models}</td>
+                    <td className="font-mono text-xs text-stone-500">{item.supersession}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="GRN & receiving" subtitle="PO to GRN to supplier invoice" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>GRN</th>
+                  <th>PO</th>
+                  <th>Supplier</th>
+                  <th className="text-right">Items</th>
+                  <th>Received</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {grns.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.po}</td>
+                    <td className="text-stone-600">{item.supplier}</td>
+                    <td className="text-right text-stone-600">{item.items}</td>
+                    <td className="text-stone-600">{item.received}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Inter-branch transfers" subtitle="Dispatch, in-transit and receive" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Transfer</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th className="text-right">Items</th>
+                  <th>Status</th>
+                  <th>Dispatch</th>
+                  <th>Receive</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stockTransfers.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="text-stone-600">{item.from}</td>
+                    <td className="text-stone-600">{item.to}</td>
+                    <td className="text-right text-stone-600">{item.items}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                    <td className="text-stone-600">{item.dispatch}</td>
+                    <td className="text-stone-600">{item.receive}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Stock take & price lists" subtitle="Variance approval and branch pricing" />
+          <div className="space-y-4 p-5">
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Stock take</th>
+                    <th>Branch</th>
+                    <th>Date</th>
+                    <th>Variance</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stockTakes.map((item) => (
+                    <tr key={item.id}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                      <td className="text-stone-600">{item.branch}</td>
+                      <td className="text-stone-600">{item.date}</td>
+                      <td className="font-bold text-stone-800">{item.variance}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Branch</th>
+                    <th>Part</th>
+                    <th className="text-right">Cost</th>
+                    <th className="text-right">Retail</th>
+                    <th>Effective</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {priceLists.map((item, index) => (
+                    <tr key={index}>
+                      <td className="text-stone-600">{item.branch}</td>
+                      <td className="font-semibold text-stone-800">{item.part}</td>
+                      <td className="text-right text-stone-600">{formatPKR(item.cost)}</td>
+                      <td className="text-right font-bold text-stone-800">{formatPKR(item.retail)}</td>
+                      <td className="text-stone-600">{item.effective}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Card>
+      </div>
     </>
   );
 }

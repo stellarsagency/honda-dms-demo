@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
 import { CorporateCollectionChart } from "@/components/charts";
-import { corporateAccounts, workOrders, corporateReceivables } from "@/lib/data";
+import { corporateAccounts, workOrders, corporateReceivables, mouRates, workOrderItems, corporateStatements } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function CorporatePage() {
@@ -155,6 +155,94 @@ export default function CorporatePage() {
                     <StatusBadge status={wo.status} />
                   </td>
                   <td className="text-slate-600">{wo.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="MOU rate items" subtitle="Labour rate, parts discount, credit terms" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Labour rate</th>
+                  <th>Parts discount</th>
+                  <th>Credit terms</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {mouRates.map((item) => (
+                  <tr key={item.company}>
+                    <td className="font-semibold text-stone-800">{item.company}</td>
+                    <td className="text-stone-600">{item.labourRate}</td>
+                    <td className="text-stone-600">{item.partsDiscount}</td>
+                    <td className="text-stone-600">{item.creditTerms}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Work order items" subtitle="Per vehicle and job" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Work order</th>
+                  <th>Vehicle</th>
+                  <th>Service</th>
+                  <th className="text-right">Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {workOrderItems.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.wo}</td>
+                    <td className="text-stone-600">{item.vehicle}</td>
+                    <td className="text-stone-600">{item.service}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="mt-5">
+        <CardHeader title="Corporate statements" subtitle="Billed, collected, balance and aging" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th className="text-right">Billed</th>
+                <th className="text-right">Collected</th>
+                <th className="text-right">Balance</th>
+                <th>Aging</th>
+              </tr>
+            </thead>
+            <tbody>
+              {corporateStatements.map((item) => (
+                <tr key={item.company}>
+                  <td className="font-semibold text-stone-800">{item.company}</td>
+                  <td className="text-right text-stone-600">{formatPKR(item.billed)}</td>
+                  <td className="text-right text-stone-600">{formatPKR(item.collected)}</td>
+                  <td className="text-right font-bold text-stone-800">{formatPKR(item.balance)}</td>
+                  <td><StatusBadge status={item.aging} /></td>
                 </tr>
               ))}
             </tbody>
