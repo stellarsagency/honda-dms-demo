@@ -1,0 +1,156 @@
+import {
+  ArrowLeftRight,
+  CalendarDays,
+  CircleDollarSign,
+  ClipboardCheck,
+  Filter,
+  Plus,
+  Search,
+  Wrench,
+} from "lucide-react";
+import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar, Progress } from "@/components/ui";
+import { serviceKpis, workshopBays, jobCards, appointments } from "@/lib/data";
+import { formatPKR } from "@/lib/utils";
+
+export default function ServicePage() {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Operations"
+        title="Service Department"
+        description="Job cards, workshop bays, estimates and approvals across both branches."
+        actions={
+          <>
+            <button className="btn-secondary">
+              <Filter className="h-4 w-4" /> Filters
+            </button>
+            <button className="btn-primary">
+              <Plus className="h-4 w-4" /> New Job Card
+            </button>
+          </>
+        }
+      />
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {serviceKpis.map((kpi, index) => (
+          <StatCard
+            key={kpi.label}
+            label={kpi.label}
+            value={kpi.value}
+            note={kpi.sub}
+            tone={index === 0 ? "blue" : index === 1 ? "amber" : index === 2 ? "green" : "red"}
+            icon={[Wrench, ClipboardCheck, CalendarDays, ArrowLeftRight][index]}
+          />
+        ))}
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-8">
+          <CardHeader title="Workshop bays" subtitle="Live bay allocation · 3S Main" action={<button className="btn-ghost text-xs">Open board</button>} />
+          <div className="grid gap-3 p-5 sm:grid-cols-2 xl:grid-cols-3">
+            {workshopBays.map((bay) => (
+              <div key={bay.bay} className="rounded-xl border border-slate-200 bg-slate-50/60 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-slate-500">{bay.bay}</span>
+                  <StatusBadge status={bay.status} />
+                </div>
+                <p className="mt-2 text-[13px] font-bold text-slate-800">{bay.vehicle}</p>
+                <p className="mt-0.5 font-mono text-[10px] text-slate-400">{bay.job}</p>
+                <p className="mt-2 text-[11px] text-slate-500">Technician: {bay.tech}</p>
+                <div className="mt-3">
+                  <Progress value={bay.pct} tone={bay.pct === 100 ? "green" : "blue"} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-4">
+          <CardHeader title="Today's appointments" subtitle="Scheduled vehicles" />
+          <div className="space-y-2 p-4">
+            {appointments.map((item) => (
+              <div key={item.id} className="rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[10px] font-bold text-slate-400">{item.time}</span>
+                  <StatusBadge status={item.status} />
+                </div>
+                <p className="mt-1 text-[12px] font-bold text-slate-800">{item.customer}</p>
+                <p className="text-[10px] text-slate-500">
+                  {item.vehicle} · {item.plate}
+                </p>
+                <p className="mt-1 text-[10px] text-slate-500">{item.service}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <Card className="mt-5">
+        <CardHeader
+          title="Job cards"
+          subtitle="All open, in-progress and awaiting-approval jobs"
+          action={
+            <div className="flex gap-2">
+              <div className="relative hidden sm:block">
+                <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                <input className="field h-9 w-44 pl-9 text-xs" placeholder="Search job card..." />
+              </div>
+              <button className="btn-secondary text-xs">Export</button>
+            </div>
+          }
+        />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Job Card</th>
+                <th>Customer / Vehicle</th>
+                <th>Service</th>
+                <th>Advisor</th>
+                <th>Technician</th>
+                <th>Branch</th>
+                <th>Progress</th>
+                <th>Status</th>
+                <th className="text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {jobCards.map((job) => (
+                <tr key={job.id}>
+                  <td className="font-mono text-xs font-bold text-slate-500">{job.id}</td>
+                  <td>
+                    <div className="flex items-center gap-2.5">
+                      <Avatar name={job.customer} size="sm" />
+                      <div>
+                        <p className="font-semibold text-slate-800">{job.customer}</p>
+                        <p className="text-[10px] text-slate-400">
+                          {job.vehicle} · {job.plate}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="text-slate-600">{job.service}</td>
+                  <td className="text-slate-600">{job.advisor}</td>
+                  <td className="text-slate-600">{job.technician}</td>
+                  <td className="text-slate-600">{job.branch}</td>
+                  <td>
+                    <div className="flex items-center gap-2">
+                      <Progress value={job.progress} tone={job.progress === 100 ? "green" : "blue"} className="w-20" />
+                      <span className="text-[10px] font-semibold text-slate-500">{job.progress}%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <StatusBadge status={job.status} />
+                  </td>
+                  <td className="text-right font-bold text-slate-800">
+                    {job.amount ? formatPKR(job.amount) : "Free service"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </>
+  );
+}
