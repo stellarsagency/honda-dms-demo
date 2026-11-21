@@ -20,7 +20,7 @@ export function CardHeader({
   return (
     <div className={cn("flex flex-wrap items-start justify-between gap-3 px-5 pb-4 pt-5 sm:px-6 sm:pt-6", className)}>
       <div>
-        <h2 className="font-serif text-[17px] font-bold tracking-tight text-stone-900">{title}</h2>
+        <h2 className="font-sans text-[17px] font-bold tracking-tight text-stone-900">{title}</h2>
         {subtitle ? <p className="mt-0.5 text-xs text-slate-500">{subtitle}</p> : null}
       </div>
       {action}
@@ -128,7 +128,7 @@ export function PageHeader({
         {eyebrow ? (
           <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-ruby-600">{eyebrow}</p>
         ) : null}
-        <h1 className="font-serif text-[30px] font-bold tracking-tight text-stone-900 sm:text-[34px]">{title}</h1>
+        <h1 className="font-sans text-[30px] font-bold tracking-tight text-stone-900 sm:text-[34px]">{title}</h1>
         {description ? <p className="mt-2 max-w-2xl text-sm leading-relaxed text-stone-500">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
@@ -169,7 +169,7 @@ export function StatCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold text-slate-500">{label}</p>
-          <p className="mt-2 font-serif text-[30px] font-bold leading-none tracking-tight text-stone-900">{value}</p>
+          <p className="mt-2 font-sans text-[30px] font-bold leading-none tracking-tight text-stone-900">{value}</p>
         </div>
         {Icon ? (
           <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1", statToneMap[tone])}>

@@ -88,12 +88,12 @@ const pageLabels: Record<string, string> = {
 function Brand() {
   return (
     <Link href="/dashboard" className="flex items-center gap-3">
-      <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-ruby-600 to-honda-700 text-xl font-serif italic text-white shadow-[0_14px_30px_-12px_rgba(185,28,44,0.8)]">
+      <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-ruby-600 to-honda-700 text-xl font-sans italic text-white shadow-[0_14px_30px_-12px_rgba(185,28,44,0.8)]">
         H
         <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-obsidian bg-emerald-300" />
       </span>
       <span className="leading-none">
-        <span className="block font-serif text-[19px] font-bold tracking-[0.12em] text-white">HONDA</span>
+        <span className="block font-sans text-[19px] font-bold tracking-[0.12em] text-white">HONDA</span>
         <span className="mt-1 block text-[9px] font-medium tracking-[0.32em] text-champagne/80">DEALER DMS</span>
       </span>
     </Link>

@@ -32,7 +32,7 @@ export default function DashboardPage() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-ruby-600">Good morning, Zeeshan</p>
-            <h1 className="mt-3 font-serif text-4xl font-bold leading-tight tracking-tight text-stone-900 sm:text-5xl">
+            <h1 className="mt-3 font-sans text-4xl font-bold leading-tight tracking-tight text-stone-900 sm:text-5xl">
               Your dealership is running smoothly today.
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
@@ -58,7 +58,7 @@ export default function DashboardPage() {
           ].map((item) => (
             <div key={item.label} className="rounded-2xl border border-white/70 bg-white/70 p-4 backdrop-blur-sm">
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-400">{item.label}</p>
-              <p className="mt-2 font-serif text-2xl font-bold text-stone-900">{item.value}</p>
+              <p className="mt-2 font-sans text-2xl font-bold text-stone-900">{item.value}</p>
               <p className="mt-1 text-[11px] text-stone-500">{item.note}</p>
             </div>
           ))}
@@ -108,15 +108,15 @@ export default function DashboardPage() {
           <div className="mx-5 mb-5 grid grid-cols-3 gap-3 rounded-2xl bg-stone-50/80 p-4 text-center">
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400">3S Main</p>
-              <p className="mt-1 font-serif text-xl font-bold text-stone-900">PKR 1.0 Cr</p>
+              <p className="mt-1 font-sans text-xl font-bold text-stone-900">PKR 1.0 Cr</p>
             </div>
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400">2S City</p>
-              <p className="mt-1 font-serif text-xl font-bold text-stone-900">PKR 1.0 Cr</p>
+              <p className="mt-1 font-sans text-xl font-bold text-stone-900">PKR 1.0 Cr</p>
             </div>
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400">Group</p>
-              <p className="mt-1 font-serif text-xl font-bold text-ruby-600">PKR 2.0 Cr</p>
+              <p className="mt-1 font-sans text-xl font-bold text-ruby-600">PKR 2.0 Cr</p>
             </div>
           </div>
         </Card>
@@ -217,7 +217,7 @@ export default function DashboardPage() {
               <span className="font-mono text-[10px] font-semibold text-stone-400">{job.id}</span>
               <StatusBadge status={job.status} />
             </div>
-            <p className="mt-3 font-serif text-lg font-bold text-stone-900">{job.customer}</p>
+            <p className="mt-3 font-sans text-lg font-bold text-stone-900">{job.customer}</p>
             <p className="mt-1 text-[11px] text-stone-500">
               {job.vehicle} · {job.plate}
             </p>
