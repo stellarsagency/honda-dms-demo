@@ -28,6 +28,7 @@ import {
   X,
 } from "lucide-react";
 import { BranchProvider, useBranch } from "@/components/branch-context";
+import { UserProvider, useUser } from "@/components/user-context";
 import { branches, currentUser, notifications } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import type { Branch } from "@/lib/data";
@@ -103,6 +104,7 @@ function Brand() {
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const { branch, is2S } = useBranch();
+  const { user, logout } = useUser();
 
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-obsidian via-ink-900 to-ink-800 text-slate-200">
@@ -195,13 +197,13 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         </div>
         <div className="flex items-center gap-2.5 rounded-xl px-2 py-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-[11px] font-bold text-white">
-            {currentUser.initials}
+            {user.initials}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-[12px] font-semibold text-white">{currentUser.name}</p>
-            <p className="truncate text-[9px] text-slate-500">{currentUser.role}</p>
+            <p className="truncate text-[12px] font-semibold text-white">{user.name}</p>
+            <p className="truncate text-[9px] text-slate-500">{user.role}</p>
           </div>
-          <Link href="/login" className="rounded-lg p-1.5 text-slate-500 transition hover:bg-white/10 hover:text-white" title="Sign out">
+          <Link href="/login" onClick={logout} className="rounded-lg p-1.5 text-slate-500 transition hover:bg-white/10 hover:text-white" title="Sign out">
             <LogOut className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -286,6 +288,7 @@ function NotificationMenu() {
 }
 
 function UserMenu() {
+  const { user, logout } = useUser();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -301,19 +304,19 @@ function UserMenu() {
     <div className="relative" ref={ref}>
       <button onClick={() => setOpen((value) => !value)} className="flex items-center gap-2 rounded-xl p-1 transition hover:bg-slate-100">
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink-900 text-[11px] font-bold text-white">
-          {currentUser.initials}
+          {user.initials}
         </span>
         <span className="hidden text-left lg:block">
-          <span className="block text-[11px] font-bold leading-tight text-slate-800">{currentUser.name}</span>
-          <span className="block text-[9px] leading-tight text-slate-500">Group Admin</span>
+          <span className="block text-[11px] font-bold leading-tight text-slate-800">{user.name}</span>
+          <span className="block text-[9px] leading-tight text-slate-500">{user.role}</span>
         </span>
         <ChevronDown className="hidden h-3.5 w-3.5 text-slate-400 lg:block" />
       </button>
       {open ? (
         <div className="absolute right-0 top-11 z-50 w-56 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lift">
           <div className="border-b border-slate-100 px-4 py-3">
-            <p className="text-xs font-bold text-slate-800">{currentUser.name}</p>
-            <p className="mt-0.5 text-[10px] text-slate-500">{currentUser.email}</p>
+            <p className="text-xs font-bold text-slate-800">{user.name}</p>
+            <p className="mt-0.5 text-[10px] text-slate-500">{user.email}</p>
           </div>
           <div className="p-1.5">
             <Link href="/admin" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
@@ -327,7 +330,7 @@ function UserMenu() {
             </Link>
           </div>
           <div className="border-t border-slate-100 p-1.5">
-            <Link href="/login" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-honda-600 hover:bg-honda-50">
+            <Link href="/login" onClick={logout} className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-honda-600 hover:bg-honda-50">
               <LogOut className="h-4 w-4" /> Sign out
             </Link>
           </div>
@@ -485,8 +488,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <BranchProvider>
-      <div className="min-h-screen bg-mist">
+    <UserProvider>
+      <BranchProvider>
+        <div className="min-h-screen bg-mist">
         <aside className="fixed inset-y-0 left-0 z-50 hidden w-[260px] lg:block">
           <Sidebar />
         </aside>
@@ -521,5 +525,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <CommandPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
       </div>
     </BranchProvider>
+  </UserProvider>
   );
 }

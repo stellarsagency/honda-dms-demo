@@ -1,7 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Lock, Mail, ShieldCheck } from "lucide-react";
+import { demoUsers } from "@/components/user-context";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  function signIn(email: string, href: string) {
+    const user = demoUsers[email];
+    if (user) window.localStorage.setItem("dms_user", JSON.stringify(user));
+    router.push(href);
+  }
+
   return (
     <div className="min-h-screen bg-ink-900">
       <div className="grid min-h-screen lg:grid-cols-2">
@@ -84,10 +96,10 @@ export default function LoginPage() {
                 </a>
               </div>
 
-              <Link href="/dashboard" className="btn-primary flex w-full">
+              <button onClick={() => signIn("zeeshan@demohonda.pk", "/dashboard")} className="btn-primary flex w-full">
                 Sign in
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </button>
 
               <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-500">
                 <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" />
@@ -106,14 +118,14 @@ export default function LoginPage() {
                   { email: "usman@demohonda.pk", role: "Branch Manager · 3S", href: "/dashboard" },
                   { email: "adeel@demohonda.pk", role: "Service Advisor · 2S", href: "/service" },
                 ].map((account) => (
-                  <Link
+                  <button
                     key={account.email}
-                    href={account.href}
-                    className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2 transition hover:bg-stone-100"
+                    onClick={() => signIn(account.email, account.href)}
+                    className="flex w-full items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2 text-left transition hover:bg-stone-100"
                   >
                     <span className="font-mono text-[11px] text-slate-600">{account.email}</span>
                     <span className="text-[10px] font-semibold text-slate-400">{account.role} →</span>
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>
