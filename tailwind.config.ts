@@ -29,6 +29,14 @@ const config: Config = {
           900: "#811823",
         },
         mist: "#F5F6F8",
+        ivory: "#FBF8F3",
+        champagne: "#D9C7A3",
+        obsidian: "#10131A",
+        ruby: {
+          50: "#FFF1F2",
+          600: "#B91C2C",
+          700: "#9F1239",
+        },
       },
       fontFamily: {
         sans: [
@@ -38,6 +46,12 @@ const config: Config = {
           "BlinkMacSystemFont",
           "Segoe UI",
           "sans-serif",
+        ],
+        serif: [
+          "Georgia",
+          "Times New Roman",
+          "Times",
+          "serif",
         ],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },

@@ -85,13 +85,13 @@ const pageLabels: Record<string, string> = {
 function Brand() {
   return (
     <Link href="/dashboard" className="flex items-center gap-3">
-      <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-honda-600 text-lg font-black italic text-white shadow-[0_8px_20px_-8px_rgba(225,29,46,0.8)]">
+      <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-ruby-600 to-honda-700 text-xl font-serif italic text-white shadow-[0_14px_30px_-12px_rgba(185,28,44,0.8)]">
         H
-        <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-ink-900 bg-emerald-400" />
+        <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-obsidian bg-emerald-300" />
       </span>
       <span className="leading-none">
-        <span className="block text-[17px] font-black tracking-[0.16em] text-white">HONDA</span>
-        <span className="mt-1 block text-[9px] font-semibold tracking-[0.28em] text-slate-400">DEALER DMS</span>
+        <span className="block font-serif text-[19px] font-bold tracking-[0.12em] text-white">HONDA</span>
+        <span className="mt-1 block text-[9px] font-medium tracking-[0.32em] text-champagne/80">DEALER DMS</span>
       </span>
     </Link>
   );
@@ -102,13 +102,13 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { branch, is2S } = useBranch();
 
   return (
-    <div className="flex h-full flex-col bg-ink-900 text-slate-300">
-      <div className="flex h-16 items-center border-b border-white/[0.07] px-5">
+    <div className="flex h-full flex-col bg-gradient-to-b from-obsidian via-ink-900 to-ink-800 text-slate-200">
+      <div className="flex h-16 items-center border-b border-white/10 px-5">
         <Brand />
       </div>
 
       <div className="px-4 pt-4">
-        <div className="rounded-xl border border-white/[0.07] bg-white/[0.035] p-3">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
           <div className="flex items-center justify-between">
             <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Active branch</span>
             <span
@@ -148,8 +148,8 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                       className={cn(
                         "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition",
                         active
-                          ? "bg-white/[0.08] text-white"
-                          : "text-slate-400 hover:bg-white/[0.045] hover:text-slate-100",
+                          ? "bg-white/[0.09] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                          : "text-slate-300/75 hover:bg-white/[0.05] hover:text-slate-100",
                       )}
                     >
                       {active ? (
@@ -183,7 +183,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="border-t border-white/[0.07] p-3">
-        <div className="mb-2 flex items-center gap-2 rounded-xl bg-emerald-500/[0.07] px-3 py-2">
+        <div className="mb-2 flex items-center gap-2 rounded-xl border border-emerald-400/15 bg-emerald-500/[0.08] px-3 py-2">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -420,7 +420,7 @@ function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () => void
   const { is2S } = useBranch();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-stone-200/80 bg-ivory/75 backdrop-blur-xl">
       <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-7">
         <button className="icon-btn lg:hidden" onClick={onMenu} aria-label="Open menu">
           <Menu className="h-5 w-5" />
@@ -434,7 +434,7 @@ function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () => void
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
           <button
             onClick={onSearch}
-            className="hidden h-9 w-[220px] items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/80 px-3 text-left text-xs text-slate-400 transition hover:border-slate-300 hover:bg-white md:flex xl:w-[280px]"
+            className="hidden h-9 w-[220px] items-center gap-2 rounded-full border border-stone-200/90 bg-white/70 px-4 text-left text-xs text-stone-500 shadow-sm transition hover:border-stone-300 hover:bg-white md:flex xl:w-[280px]"
           >
             <Search className="h-3.5 w-3.5" />
             <span className="flex-1 truncate">Search anything...</span>

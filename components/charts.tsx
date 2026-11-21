@@ -35,15 +35,16 @@ import {
 } from "@/lib/data";
 
 const tooltipStyle = {
-  borderRadius: 12,
-  border: "1px solid #e2e8f0",
-  boxShadow: "0 12px 32px -12px rgba(16,24,40,0.18)",
+  borderRadius: 14,
+  border: "1px solid #e7e1d8",
+  boxShadow: "0 18px 40px -24px rgba(24,21,18,0.28)",
   fontSize: 12,
-  padding: "10px 12px",
+  padding: "10px 14px",
+  background: "rgba(255,255,255,0.96)",
 };
 
-const grid = "#eef1f5";
-const axis = "#94a3b8";
+const grid = "#e7e1d8";
+const axis = "#8a7f72";
 
 export function RevenueChart() {
   return (
