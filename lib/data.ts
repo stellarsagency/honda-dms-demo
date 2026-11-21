@@ -936,6 +936,12 @@ export const departmentAccounts = [
   { account: "Accounts Department", user: "accounts@demohonda.pk", role: "Accounts Manager", features: "Invoices, receipts, receivables", status: "Active" },
 ];
 
+export const accountApprovalRequests = [
+  { id: "ACC-APR-014", account: "HR Department", requestedBy: "Zeeshan Awan", approvedBy: "Zeeshan Awan", status: "Approved", features: "Attendance, payroll, leave, employees", date: "21 Nov" },
+  { id: "ACC-APR-013", account: "Service Department", requestedBy: "Zeeshan Awan", approvedBy: "Zeeshan Awan", status: "Approved", features: "Job cards, estimates, QC, gate pass", date: "20 Nov" },
+  { id: "ACC-APR-012", account: "Accounts Department", requestedBy: "Zeeshan Awan", approvedBy: "Pending", status: "Pending", features: "Invoices, receipts, receivables", date: "21 Nov" },
+];
+
 export const integrations = [
   { name: "Honda Atlas", type: "Parts & warranty", status: "Connected", lastSync: "Today, 07:00", tone: "green" },
   { name: "FBR e-Invoicing", type: "Tax", status: "Connected", lastSync: "Today, 09:30", tone: "green" },

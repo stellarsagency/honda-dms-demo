@@ -8,7 +8,7 @@ import {
   Users,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
-import { users, roles, auditLog, integrations, documentVault, notificationTemplates, jobQueue, approvalRequests, featureFlags, auditChanges, departmentAccounts } from "@/lib/data";
+import { users, roles, auditLog, integrations, documentVault, notificationTemplates, jobQueue, approvalRequests, featureFlags, auditChanges, departmentAccounts, accountApprovalRequests } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function AdminPage() {
@@ -339,6 +339,38 @@ export default function AdminPage() {
                   <td className="text-stone-600">{item.role}</td>
                   <td className="text-stone-600">{item.features}</td>
                   <td><StatusBadge status={item.status} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      <Card className="mt-5">
+        <CardHeader title="Account approval workflow" subtitle="Admin approves department accounts and features" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Request</th>
+                <th>Account</th>
+                <th>Requested by</th>
+                <th>Approved by</th>
+                <th>Features</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {accountApprovalRequests.map((item) => (
+                <tr key={item.id}>
+                  <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                  <td className="font-semibold text-stone-800">{item.account}</td>
+                  <td className="text-stone-600">{item.requestedBy}</td>
+                  <td className="text-stone-600">{item.approvedBy}</td>
+                  <td className="text-stone-600">{item.features}</td>
+                  <td><StatusBadge status={item.status} /></td>
+                  <td className="text-stone-600">{item.date}</td>
                 </tr>
               ))}
             </tbody>
