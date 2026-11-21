@@ -99,17 +99,21 @@ export default function LoginPage() {
               <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Demo accounts</p>
               <div className="mt-3 space-y-2 text-xs">
                 {[
-                  { email: "zeeshan@demohonda.pk", role: "Owner / Group Administrator" },
-                  { email: "hr@demohonda.pk", role: "HR Department Account" },
-                  { email: "service@demohonda.pk", role: "Service Department Account" },
-                  { email: "accounts@demohonda.pk", role: "Accounts Department Account" },
-                  { email: "usman@demohonda.pk", role: "Branch Manager · 3S" },
-                  { email: "adeel@demohonda.pk", role: "Service Advisor · 2S" },
+                  { email: "zeeshan@demohonda.pk", role: "Owner / Group Administrator", href: "/dashboard" },
+                  { email: "hr@demohonda.pk", role: "HR Department Account", href: "/hr" },
+                  { email: "service@demohonda.pk", role: "Service Department Account", href: "/service" },
+                  { email: "accounts@demohonda.pk", role: "Accounts Department Account", href: "/accounts" },
+                  { email: "usman@demohonda.pk", role: "Branch Manager · 3S", href: "/dashboard" },
+                  { email: "adeel@demohonda.pk", role: "Service Advisor · 2S", href: "/service" },
                 ].map((account) => (
-                  <div key={account.email} className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2">
+                  <Link
+                    key={account.email}
+                    href={account.href}
+                    className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2 transition hover:bg-stone-100"
+                  >
                     <span className="font-mono text-[11px] text-slate-600">{account.email}</span>
-                    <span className="text-[10px] font-semibold text-slate-400">{account.role}</span>
-                  </div>
+                    <span className="text-[10px] font-semibold text-slate-400">{account.role} →</span>
+                  </Link>
                 ))}
               </div>
             </div>
