@@ -35,7 +35,10 @@ import type { Branch } from "@/lib/data";
 const navSections = [
   {
     label: "Overview",
-    items: [{ href: "/dashboard", label: "Dashboard", icon: LayoutDashboard }],
+    items: [
+      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { href: "/customers", label: "Customers & Vehicles", icon: Users },
+    ],
   },
   {
     label: "Operations",

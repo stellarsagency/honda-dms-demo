@@ -563,6 +563,38 @@ export const auditLog = [
   { user: "Ayesha Khan", action: "Printed job card", entity: "JC-3S-0843", ip: "10.0.12.27", time: "20 Nov 16:12" },
 ];
 
+export const customers = [
+  { id: "CUS-001", name: "Bilal Ahmed", type: "Individual", phone: "0300-4821901", cnic: "35201-1234567-1", city: "Lahore", branch: "3S Main", vehicles: 2, creditTerms: "Cash", status: "Active" },
+  { id: "CUS-002", name: "Meezan Bank Ltd.", type: "Corporate", phone: "042-35781000", cnic: "NTN 1234567-8", city: "Lahore", branch: "All", vehicles: 42, creditTerms: "45 days", status: "Active" },
+  { id: "CUS-003", name: "Sana Malik", type: "Individual", phone: "0321-1180442", cnic: "35202-9876543-2", city: "Lahore", branch: "2S City", vehicles: 1, creditTerms: "Cash", status: "Active" },
+  { id: "CUS-004", name: "Packages Ltd.", type: "Corporate", phone: "042-37501234", cnic: "NTN 8765432-1", city: "Lahore", branch: "All", vehicles: 28, creditTerms: "30 days", status: "Active" },
+  { id: "CUS-005", name: "Hamza Sheikh", type: "Individual", phone: "0333-9077123", cnic: "35203-5566778-9", city: "Lahore", branch: "3S Main", vehicles: 1, creditTerms: "Cash", status: "Active" },
+  { id: "CUS-006", name: "Faisal Nawaz", type: "Individual", phone: "0345-5566789", cnic: "35204-2233445-6", city: "Lahore", branch: "2S City", vehicles: 1, creditTerms: "Cash", status: "Active" },
+  { id: "CUS-007", name: "Nishat Mills", type: "Corporate", phone: "042-36509999", cnic: "NTN 3344556-7", city: "Lahore", branch: "All", vehicles: 33, creditTerms: "60 days", status: "Active" },
+  { id: "CUS-008", name: "Mariam Javed", type: "Individual", phone: "0301-0019234", cnic: "35205-7788990-1", city: "Lahore", branch: "3S Main", vehicles: 1, creditTerms: "Cash", status: "Active" },
+];
+
+export const vehicles = [
+  { vin: "HND-CIV-2022-004821", reg: "LEB-4821", make: "Honda", model: "Civic", variant: "1.5T RS", year: 2022, color: "Pearl White", owner: "Bilal Ahmed", warranty: "Sep 2027", odometer: 18420, branchHistory: "Sold 3S Main · Serviced 3S/2S" },
+  { vin: "HND-CITY-2021-01180", reg: "LEC-1180", make: "Honda", model: "City", variant: "1.5 CVT", year: 2021, color: "Taffeta White", owner: "Sana Malik", warranty: "Expired", odometer: 42110, branchHistory: "Serviced 2S City" },
+  { vin: "HND-BRV-2023-09077", reg: "LEA-9077", make: "Honda", model: "BR-V", variant: "S", year: 2023, color: "Lunar Silver", owner: "Hamza Sheikh", warranty: "Mar 2028", odometer: 12880, branchHistory: "Sold 3S Main" },
+  { vin: "HND-HRV-2022-5566", reg: "LES-5566", make: "Honda", model: "HR-V", variant: "VTi", year: 2022, color: "Crystal Red", owner: "Faisal Nawaz", warranty: "Expired", odometer: 31500, branchHistory: "Serviced 2S City" },
+  { vin: "HND-CIV-2024-00019", reg: "LEB-0019", make: "Honda", model: "Civic", variant: "Oriel", year: 2024, color: "Crystal Black", owner: "Mariam Javed", warranty: "Nov 2029", odometer: 4120, branchHistory: "Sold 3S Main" },
+];
+
+export const customerHistory = [
+  { customer: "Bilal Ahmed", type: "Job card", ref: "JC-3S-0842", branch: "3S Main", date: "21 Nov", amount: 28500, status: "In Progress" },
+  { customer: "Bilal Ahmed", type: "Invoice", ref: "INV-3S-2294", branch: "3S Main", date: "21 Nov", amount: 28500, status: "Paid" },
+  { customer: "Meezan Bank Ltd.", type: "Work order", ref: "WO-3S-4412", branch: "3S Main", date: "21 Nov", amount: 486000, status: "In Progress" },
+  { customer: "Sana Malik", type: "Job card", ref: "JC-2S-0311", branch: "2S City", date: "21 Nov", amount: 14200, status: "In Progress" },
+];
+
+export const duplicateCandidates = [
+  { recordA: "Bilal Ahmed · 0300-4821901", recordB: "Bilal A. · 0300-4821901", match: "Phone + name", confidence: "96%", action: "Merge" },
+  { recordA: "Honda Civic · LEB-4821", recordB: "Civic 2022 · LEB-4821", match: "Registration", confidence: "100%", action: "Merge" },
+  { recordA: "Packages Ltd · NTN 8765432-1", recordB: "Packages Limited · NTN 8765432-1", match: "NTN", confidence: "98%", action: "Review" },
+];
+
 export const integrations = [
   { name: "Honda Atlas", type: "Parts & warranty", status: "Connected", lastSync: "Today, 07:00", tone: "green" },
   { name: "FBR e-Invoicing", type: "Tax", status: "Connected", lastSync: "Today, 09:30", tone: "green" },
