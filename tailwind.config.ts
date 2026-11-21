@@ -40,6 +40,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          "var(--font-inter)",
           "Inter",
           "ui-sans-serif",
           "-apple-system",
@@ -48,6 +49,7 @@ const config: Config = {
           "sans-serif",
         ],
         serif: [
+          "var(--font-playfair)",
           "Georgia",
           "Times New Roman",
           "Times",
