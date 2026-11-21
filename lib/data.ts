@@ -850,6 +850,92 @@ export const auditChanges = [
   { entity: "Discount", before: "0%", after: "8.5%", changedBy: "Usman Tariq", date: "21 Nov" },
 ];
 
+export const wheelAlignmentJobs = [
+  { id: "WA-3S-001", customer: "Bilal Ahmed", vehicle: "Civic 2022", profile: "Premium service profile", alignment: "Front + rear", amount: 6500, status: "Completed" },
+  { id: "WA-2S-004", customer: "Faisal Nawaz", vehicle: "HR-V 2022", profile: "City drive profile", alignment: "Front only", amount: 4200, status: "In progress" },
+];
+
+export const serviceCustomerProfiles = [
+  { customer: "Bilal Ahmed", vehicle: "Civic 2022", preferredAdvisor: "Usman Tariq", serviceHistory: 6, creditStatus: "Clear", lastVisit: "21 Nov" },
+  { customer: "Sana Malik", vehicle: "City 2021", preferredAdvisor: "Adeel Raza", serviceHistory: 4, creditStatus: "Clear", lastVisit: "21 Nov" },
+];
+
+export const servicePayments = [
+  { id: "PAY-3S-041", invoice: "INV-3S-2294", method: "Cash", amount: 28500, receivedBy: "Cashier", status: "Posted" },
+  { id: "PAY-3S-042", invoice: "INV-3S-2290", method: "Card", amount: 2000000, receivedBy: "Cashier", status: "Posted" },
+  { id: "PAY-2S-018", invoice: "INV-2S-0871", method: "Card", amount: 14200, receivedBy: "Cashier", status: "Posted" },
+];
+
+export const vehicleInOut = [
+  { id: "IO-3S-088", vehicle: "Civic 2022", inTime: "09:15", outTime: "12:40", gatePass: "GP-3S-0779", status: "Released" },
+  { id: "IO-2S-031", vehicle: "City 2021", inTime: "10:00", outTime: "Pending", gatePass: "Hold", status: "In workshop" },
+];
+
+export const salesCustomerProfiles = [
+  { customer: "Ali Hassan", model: "Civic RS Turbo", consultant: "Fahad Mirza", finance: "Bank Alfalah", status: "Delivered" },
+  { customer: "Fatima Zahra", model: "City 1.5 CVT", consultant: "Hira Sohail", finance: "Meezan Bank", status: "Financing" },
+  { customer: "Omar Farooq", model: "HR-V VTi", consultant: "Fahad Mirza", finance: "Cash", status: "Booked" },
+];
+
+export const salesPayments = [
+  { id: "SPAY-3S-014", booking: "BKG-3S-1284", method: "Bank", amount: 8320000, status: "Received" },
+  { id: "SPAY-3S-015", booking: "BKG-3S-1285", method: "Finance", amount: 2000000, status: "Partial" },
+];
+
+export const staffAttendance = [
+  { employee: "Imran Ali", date: "21 Nov", checkIn: "08:02", checkOut: "17:15", status: "Present" },
+  { employee: "Ayesha Khan", date: "21 Nov", checkIn: "08:10", checkOut: "17:05", status: "Present" },
+  { employee: "Naveed Anwar", date: "21 Nov", checkIn: "—", checkOut: "—", status: "On leave" },
+  { employee: "Kashif Mehmood", date: "21 Nov", checkIn: "08:25", checkOut: "17:20", status: "Present" },
+];
+
+export const monthlySalary = [
+  { employee: "Imran Ali", basic: 135000, allowance: 12000, deduction: 4500, net: 142500, status: "Paid" },
+  { employee: "Ayesha Khan", basic: 110000, allowance: 9000, deduction: 3200, net: 115800, status: "Paid" },
+  { employee: "Naveed Anwar", basic: 85000, allowance: 7000, deduction: 2100, net: 89900, status: "Pending" },
+];
+
+export const staffCreditReference = [
+  { employee: "Imran Ali", creditLimit: 50000, used: 12000, reference: "EMP-044 / CNIC 35201-...", days: 30, status: "Clear" },
+  { employee: "Ayesha Khan", creditLimit: 35000, used: 0, reference: "EMP-019 / CNIC 35202-...", days: 15, status: "Clear" },
+  { employee: "Naveed Anwar", creditLimit: 25000, used: 8000, reference: "EMP-052 / CNIC 35203-...", days: 45, status: "Overdue" },
+];
+
+export const serviceSalesAccounts = [
+  { account: "Service revenue", branch: "3S Main", cash: 486000, bank: 1284000, credit: 640000, status: "Open" },
+  { account: "Sales revenue", branch: "3S Main", cash: 2000000, bank: 4820000, credit: 1200000, status: "Open" },
+  { account: "Service revenue", branch: "2S City", cash: 142000, bank: 318000, credit: 220000, status: "Open" },
+];
+
+export const cashBankPayOrder = [
+  { id: "TXN-001", type: "Cash in", amount: 486000, bank: "HBL", method: "Cash", reference: "Day-end", days: 0 },
+  { id: "TXN-002", type: "Bank deposit", amount: 1284000, bank: "HBL", method: "Bank", reference: "PO-3S-0291", days: 1 },
+  { id: "TXN-003", type: "Pay order", amount: 425000, bank: "Meezan", method: "Pay order", reference: "MOU-2025-014", days: 2 },
+  { id: "TXN-004", type: "Credit", amount: 640000, bank: "—", method: "Credit", reference: "INV-3S-2293", days: 45 },
+];
+
+export const corporateMouLetters = [
+  { company: "Meezan Bank Ltd.", mouLetter: "MOU-2025-014", requirements: "Fleet service, 42 vehicles, 45-day credit", workOrder: "WO-3S-4412", attachment: "MOU scan + WO PDF", status: "Active" },
+  { company: "Packages Ltd.", mouLetter: "MOU-2025-009", requirements: "Periodic maintenance, 28 vehicles, 30-day credit", workOrder: "WO-2S-1187", attachment: "MOU scan + WO PDF", status: "Renewal due" },
+];
+
+export const corporateCarInOut = [
+  { company: "Meezan Bank Ltd.", vehicle: "Civic 2022", inTime: "09:00", outTime: "12:30", workOrder: "WO-3S-4412", status: "Released" },
+  { company: "Packages Ltd.", vehicle: "BR-V 2023", inTime: "10:15", outTime: "Pending", workOrder: "WO-2S-1187", status: "In workshop" },
+];
+
+export const autoInvoices = [
+  { invoice: "INV-3S-2297", customer: "Meezan Bank Ltd.", amount: 486000, generated: "Auto on job close", whatsapp: "Sent", status: "Posted" },
+  { invoice: "INV-2S-0873", customer: "Packages Ltd.", amount: 218000, generated: "Auto on job close", whatsapp: "Sent", status: "Posted" },
+  { invoice: "INV-3S-2298", customer: "Bilal Ahmed", amount: 28500, generated: "Auto on payment", whatsapp: "Pending", status: "Draft" },
+];
+
+export const departmentAccounts = [
+  { account: "HR Department", user: "hr@demohonda.pk", role: "HR Manager", features: "Attendance, payroll, leave, employees", status: "Active" },
+  { account: "Service Department", user: "service@demohonda.pk", role: "Service Manager", features: "Job cards, estimates, QC, gate pass", status: "Active" },
+  { account: "Accounts Department", user: "accounts@demohonda.pk", role: "Accounts Manager", features: "Invoices, receipts, receivables", status: "Active" },
+];
+
 export const integrations = [
   { name: "Honda Atlas", type: "Parts & warranty", status: "Connected", lastSync: "Today, 07:00", tone: "green" },
   { name: "FBR e-Invoicing", type: "Tax", status: "Connected", lastSync: "Today, 09:30", tone: "green" },

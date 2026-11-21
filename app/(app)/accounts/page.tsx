@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { CashflowChart, AgingChart } from "@/components/charts";
-import { accountsKpis, invoices, aging, cashflow, receipts, paymentAllocations, creditNotes, reminderLog, promiseToPay, cashierReconciliation, taxInvoices, paymentMethods } from "@/lib/data";
+import { accountsKpis, invoices, aging, cashflow, receipts, paymentAllocations, creditNotes, reminderLog, promiseToPay, cashierReconciliation, taxInvoices, paymentMethods, serviceSalesAccounts, cashBankPayOrder } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function AccountsPage() {
@@ -372,6 +372,70 @@ export default function AccountsPage() {
                     <td className="text-stone-600">{item.branch}</td>
                     <td className="text-right text-stone-600">{item.count}</td>
                     <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Service & sales accounts" subtitle="Separate revenue accounts by branch" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Account</th>
+                  <th>Branch</th>
+                  <th className="text-right">Cash</th>
+                  <th className="text-right">Bank</th>
+                  <th className="text-right">Credit</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {serviceSalesAccounts.map((item) => (
+                  <tr key={item.account + item.branch}>
+                    <td className="font-semibold text-stone-800">{item.account}</td>
+                    <td className="text-stone-600">{item.branch}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.cash)}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.bank)}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.credit)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Cash, bank, pay order & credit" subtitle="How much, which bank, days and reference" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Txn</th>
+                  <th>Type</th>
+                  <th className="text-right">Amount</th>
+                  <th>Bank</th>
+                  <th>Method</th>
+                  <th>Reference</th>
+                  <th className="text-right">Days</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cashBankPayOrder.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="text-stone-700">{item.type}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td className="text-stone-600">{item.bank}</td>
+                    <td className="text-stone-600">{item.method}</td>
+                    <td className="font-mono text-xs text-stone-500">{item.reference}</td>
+                    <td className="text-right text-stone-600">{item.days}</td>
                   </tr>
                 ))}
               </tbody>

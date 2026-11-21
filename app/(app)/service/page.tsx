@@ -9,7 +9,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar, Progress } from "@/components/ui";
-import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback, serviceComplaints, technicianTime, reworkTracking } from "@/lib/data";
+import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback, serviceComplaints, technicianTime, reworkTracking, wheelAlignmentJobs, serviceCustomerProfiles, servicePayments, vehicleInOut, autoInvoices } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function ServicePage() {
@@ -433,6 +433,158 @@ export default function ServicePage() {
                       <td className="font-mono text-xs font-bold text-stone-500">{item.job}</td>
                       <td className="text-stone-600">{item.issue}</td>
                       <td className="text-stone-600">{item.reworkBy}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Wheel alignment jobs" subtitle="Opened on specific customer profile" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Job</th>
+                  <th>Customer profile</th>
+                  <th>Vehicle</th>
+                  <th>Alignment</th>
+                  <th className="text-right">Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {wheelAlignmentJobs.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-semibold text-stone-800">{item.customer} · {item.profile}</td>
+                    <td className="text-stone-600">{item.vehicle}</td>
+                    <td className="text-stone-600">{item.alignment}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Service customer profiles" subtitle="Preferred advisor, history, credit status" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Vehicle</th>
+                  <th>Preferred advisor</th>
+                  <th className="text-right">Service history</th>
+                  <th>Credit status</th>
+                  <th>Last visit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {serviceCustomerProfiles.map((item) => (
+                  <tr key={item.customer}>
+                    <td className="font-semibold text-stone-800">{item.customer}</td>
+                    <td className="text-stone-600">{item.vehicle}</td>
+                    <td className="text-stone-600">{item.preferredAdvisor}</td>
+                    <td className="text-right text-stone-600">{item.serviceHistory}</td>
+                    <td><StatusBadge status={item.creditStatus} /></td>
+                    <td className="text-stone-600">{item.lastVisit}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Service payments" subtitle="Cash or card at service counter" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Payment</th>
+                  <th>Invoice</th>
+                  <th>Method</th>
+                  <th className="text-right">Amount</th>
+                  <th>Received by</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {servicePayments.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.invoice}</td>
+                    <td><StatusBadge status={item.method} /></td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td className="text-stone-600">{item.receivedBy}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Car in/out & auto invoice" subtitle="Gate pass, WhatsApp invoice, auto generation" />
+          <div className="space-y-4 p-5">
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Log</th>
+                    <th>Vehicle</th>
+                    <th>In</th>
+                    <th>Out</th>
+                    <th>Gate pass</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vehicleInOut.map((item) => (
+                    <tr key={item.id}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                      <td className="text-stone-700">{item.vehicle}</td>
+                      <td className="text-stone-600">{item.inTime}</td>
+                      <td className="text-stone-600">{item.outTime}</td>
+                      <td className="font-mono text-xs">{item.gatePass}</td>
+                      <td><StatusBadge status={item.status} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="table-wrap">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Invoice</th>
+                    <th>Customer</th>
+                    <th className="text-right">Amount</th>
+                    <th>Generated</th>
+                    <th>WhatsApp</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {autoInvoices.map((item) => (
+                    <tr key={item.invoice}>
+                      <td className="font-mono text-xs font-bold text-stone-500">{item.invoice}</td>
+                      <td className="text-stone-700">{item.customer}</td>
+                      <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                      <td className="text-stone-600">{item.generated}</td>
+                      <td><StatusBadge status={item.whatsapp} /></td>
                       <td><StatusBadge status={item.status} /></td>
                     </tr>
                   ))}

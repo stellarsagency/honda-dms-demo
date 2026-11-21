@@ -100,6 +100,9 @@ export default function LoginPage() {
               <div className="mt-3 space-y-2 text-xs">
                 {[
                   { email: "zeeshan@demohonda.pk", role: "Owner / Group Administrator" },
+                  { email: "hr@demohonda.pk", role: "HR Department Account" },
+                  { email: "service@demohonda.pk", role: "Service Department Account" },
+                  { email: "accounts@demohonda.pk", role: "Accounts Department Account" },
                   { email: "usman@demohonda.pk", role: "Branch Manager · 3S" },
                   { email: "adeel@demohonda.pk", role: "Service Advisor · 2S" },
                 ].map((account) => (

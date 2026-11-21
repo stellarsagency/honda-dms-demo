@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { SalesTargetChart, PipelineChart } from "@/components/charts";
-import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend, leads, testDrives, quotations, pdiDeliveries, exchanges, salesTargets } from "@/lib/data";
+import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend, leads, testDrives, quotations, pdiDeliveries, exchanges, salesTargets, salesCustomerProfiles, salesPayments } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function SalesPage() {
@@ -329,6 +329,64 @@ export default function SalesPage() {
           </table>
         </div>
       </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Sales customer profiles" subtitle="Consultant, finance and delivery status" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Model</th>
+                  <th>Consultant</th>
+                  <th>Finance</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {salesCustomerProfiles.map((item) => (
+                  <tr key={item.customer}>
+                    <td className="font-semibold text-stone-800">{item.customer}</td>
+                    <td className="text-stone-600">{item.model}</td>
+                    <td className="text-stone-600">{item.consultant}</td>
+                    <td className="text-stone-600">{item.finance}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Sales payments" subtitle="Booking payments by method" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Payment</th>
+                  <th>Booking</th>
+                  <th>Method</th>
+                  <th className="text-right">Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {salesPayments.map((item) => (
+                  <tr key={item.id}>
+                    <td className="font-mono text-xs font-bold text-stone-500">{item.id}</td>
+                    <td className="font-mono text-xs">{item.booking}</td>
+                    <td><StatusBadge status={item.method} /></td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
     </>
   );
 }

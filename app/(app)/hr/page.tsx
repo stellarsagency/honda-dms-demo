@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
 import { HeadcountDonut, AttendanceChart } from "@/components/charts";
-import { hrKpis, employees, leaveRequests, attendanceTrend, departmentHeadcount } from "@/lib/data";
+import { hrKpis, employees, leaveRequests, attendanceTrend, departmentHeadcount, staffAttendance, monthlySalary, staffCreditReference } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function HRPage() {
@@ -179,6 +179,96 @@ export default function HRPage() {
           </div>
         </Card>
       </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Staff in/out" subtitle="Daily attendance and shift tracking" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Date</th>
+                  <th>Check in</th>
+                  <th>Check out</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {staffAttendance.map((item, index) => (
+                  <tr key={index}>
+                    <td className="font-semibold text-stone-800">{item.employee}</td>
+                    <td className="text-stone-600">{item.date}</td>
+                    <td className="text-stone-600">{item.checkIn}</td>
+                    <td className="text-stone-600">{item.checkOut}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Monthly salary" subtitle="Basic, allowance, deduction and net pay" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th className="text-right">Basic</th>
+                  <th className="text-right">Allowance</th>
+                  <th className="text-right">Deduction</th>
+                  <th className="text-right">Net</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {monthlySalary.map((item) => (
+                  <tr key={item.employee}>
+                    <td className="font-semibold text-stone-800">{item.employee}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.basic)}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.allowance)}</td>
+                    <td className="text-right text-stone-600">{formatPKR(item.deduction)}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(item.net)}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="mt-5">
+        <CardHeader title="Staff credit & reference" subtitle="Credit limit, used amount, reference and days" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th className="text-right">Credit limit</th>
+                <th className="text-right">Used</th>
+                <th>Reference</th>
+                <th className="text-right">Days</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {staffCreditReference.map((item) => (
+                <tr key={item.employee}>
+                  <td className="font-semibold text-stone-800">{item.employee}</td>
+                  <td className="text-right text-stone-600">{formatPKR(item.creditLimit)}</td>
+                  <td className="text-right text-stone-600">{formatPKR(item.used)}</td>
+                  <td className="font-mono text-xs text-stone-500">{item.reference}</td>
+                  <td className="text-right text-stone-600">{item.days}</td>
+                  <td><StatusBadge status={item.status} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </>
   );
 }

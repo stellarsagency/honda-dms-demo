@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
 import { CorporateCollectionChart } from "@/components/charts";
-import { corporateAccounts, workOrders, corporateReceivables, mouRates, workOrderItems, corporateStatements } from "@/lib/data";
+import { corporateAccounts, workOrders, corporateReceivables, mouRates, workOrderItems, corporateStatements, corporateMouLetters, corporateCarInOut, autoInvoices } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function CorporatePage() {
@@ -243,6 +243,98 @@ export default function CorporatePage() {
                   <td className="text-right text-stone-600">{formatPKR(item.collected)}</td>
                   <td className="text-right font-bold text-stone-800">{formatPKR(item.balance)}</td>
                   <td><StatusBadge status={item.aging} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <Card className="lg:col-span-6">
+          <CardHeader title="Corporate MOU letters" subtitle="Separate MOU, requirements and work order" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>MOU letter</th>
+                  <th>Requirements</th>
+                  <th>Work order</th>
+                  <th>Attachment</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {corporateMouLetters.map((item) => (
+                  <tr key={item.company}>
+                    <td className="font-semibold text-stone-800">{item.company}</td>
+                    <td className="font-mono text-xs text-stone-500">{item.mouLetter}</td>
+                    <td className="text-stone-600">{item.requirements}</td>
+                    <td className="font-mono text-xs">{item.workOrder}</td>
+                    <td className="text-stone-600">{item.attachment}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <Card className="lg:col-span-6">
+          <CardHeader title="Corporate car in/out" subtitle="Appointment and vehicle movement" />
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Vehicle</th>
+                  <th>In</th>
+                  <th>Out</th>
+                  <th>Work order</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {corporateCarInOut.map((item, index) => (
+                  <tr key={index}>
+                    <td className="font-semibold text-stone-800">{item.company}</td>
+                    <td className="text-stone-600">{item.vehicle}</td>
+                    <td className="text-stone-600">{item.inTime}</td>
+                    <td className="text-stone-600">{item.outTime}</td>
+                    <td className="font-mono text-xs">{item.workOrder}</td>
+                    <td><StatusBadge status={item.status} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="mt-5">
+        <CardHeader title="Auto invoice & WhatsApp" subtitle="Auto-generate invoice and send to client" />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Invoice</th>
+                <th>Customer</th>
+                <th className="text-right">Amount</th>
+                <th>Generated</th>
+                <th>WhatsApp</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {autoInvoices.map((item) => (
+                <tr key={item.invoice}>
+                  <td className="font-mono text-xs font-bold text-stone-500">{item.invoice}</td>
+                  <td className="text-stone-700">{item.customer}</td>
+                  <td className="text-right font-bold text-stone-800">{formatPKR(item.amount)}</td>
+                  <td className="text-stone-600">{item.generated}</td>
+                  <td><StatusBadge status={item.whatsapp} /></td>
+                  <td><StatusBadge status={item.status} /></td>
                 </tr>
               ))}
             </tbody>
