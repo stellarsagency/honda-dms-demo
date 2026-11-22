@@ -74,6 +74,8 @@ export const featureCatalog: FeatureDef[] = [
   { key: "service.sublet", module: "service", label: "Sublet & outsourced work" },
   { key: "service.health", module: "service", label: "Vehicle health reports" },
   { key: "service.packages", module: "service", label: "Service packages & coupons" },
+  { key: "service.jobWorkflow", module: "service", label: "Job card workflow, pit & time" },
+  { key: "service.croReminders", module: "service", label: "CRO reminders & thanks" },
 
   // Sales
   { key: "sales.profiles", module: "sales", label: "Sales customer profiles" },
@@ -95,6 +97,7 @@ export const featureCatalog: FeatureDef[] = [
   { key: "parts.supersession", module: "parts", label: "Supersession chain" },
   { key: "parts.backorders", module: "parts", label: "Backorders" },
   { key: "parts.scrap", module: "parts", label: "Scrap & obsolescence" },
+  { key: "parts.hondaAuthorised", module: "parts", label: "Honda authorised parts view" },
 
   // Corporate
   { key: "corporate.mouLetters", module: "corporate", label: "MOU letters & requirements" },

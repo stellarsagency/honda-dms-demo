@@ -1,4 +1,5 @@
 import type { ModuleKey } from "./access";
+import { serviceJobWorkflow, hondaAuthorisedParts, croReminders } from "./data";
 
 export type FeatureColumn = {
   key: string;
@@ -13,7 +14,7 @@ export type FeatureGroup = {
   title: string;
   subtitle: string;
   columns: FeatureColumn[];
-  rows: Record<string, string | number>[];
+  rows: Record<string, string | number | boolean>[];
 };
 
 /**
@@ -1146,6 +1147,58 @@ export const featureGroups: FeatureGroup[] = [
       { policy: "Two-factor authentication", value: "Admin accounts", status: "Enforced" },
       { policy: "Session timeout", value: "30 minutes", status: "Enforced" },
     ],
+  },
+  {
+    key: "service.jobWorkflow",
+    module: "service",
+    title: "Job card workflow, pit & time",
+    subtitle: "Vehicle search, pit assignment, accumulated time and delivery estimate",
+    columns: [
+      { key: "id", label: "Job card", format: "mono" },
+      { key: "plate", label: "Plate", format: "mono" },
+      { key: "customer", label: "Customer" },
+      { key: "advisor", label: "Advisor" },
+      { key: "pit", label: "Pit" },
+      { key: "inTime", label: "In" },
+      { key: "outTime", label: "Out" },
+      { key: "estimatedMinutes", label: "Est. min", align: "right" },
+      { key: "accumulatedMinutes", label: "Total min", align: "right" },
+      { key: "status", label: "Status", format: "status" },
+    ],
+    rows: serviceJobWorkflow,
+  },
+  {
+    key: "service.croReminders",
+    module: "service",
+    title: "CRO reminders & thanks",
+    subtitle: "Customer communication, thanks message and service reminders",
+    columns: [
+      { key: "id", label: "Reminder", format: "mono" },
+      { key: "customer", label: "Customer" },
+      { key: "vehicle", label: "Vehicle" },
+      { key: "trigger", label: "Trigger" },
+      { key: "channel", label: "Channel" },
+      { key: "message", label: "Message" },
+      { key: "status", label: "Status", format: "status" },
+    ],
+    rows: croReminders,
+  },
+  {
+    key: "parts.hondaAuthorised",
+    module: "parts",
+    title: "Honda authorised parts view",
+    subtitle: "Only Honda Atlas authorised parts for company-approved users",
+    columns: [
+      { key: "part", label: "Part" },
+      { key: "number", label: "Number", format: "mono" },
+      { key: "category", label: "Category" },
+      { key: "stock3s", label: "3S", align: "right" },
+      { key: "stock2s", label: "2S", align: "right" },
+      { key: "price", label: "Retail", align: "right", format: "currency" },
+      { key: "companyScope", label: "Company" },
+      { key: "status", label: "Status", format: "status" },
+    ],
+    rows: hondaAuthorisedParts,
   },
 ];
 

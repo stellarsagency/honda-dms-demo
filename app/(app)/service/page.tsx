@@ -11,6 +11,7 @@ import {
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar, Progress } from "@/components/ui";
 import { FeatureSections } from "@/components/feature-sections";
 import { FeatureGate } from "@/components/feature-gate";
+import { ServiceJobWorkflow } from "@/components/service-job-workflow";
 import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback, serviceComplaints, technicianTime, reworkTracking, wheelAlignmentJobs, serviceCustomerProfiles, servicePayments, vehicleInOut, autoInvoices } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
@@ -606,6 +607,8 @@ export default function ServicePage() {
         </Card>
         </FeatureGate>
       </div>
+
+      <ServiceJobWorkflow />
 
       <FeatureSections module="service" />
     </>

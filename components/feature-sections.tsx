@@ -7,7 +7,7 @@ import { moduleLabels, type ModuleKey } from "@/lib/access";
 import { Card, CardHeader, StatusBadge } from "@/components/ui";
 import { cn, formatPKR } from "@/lib/utils";
 
-function Cell({ value, column }: { value: string | number; column: FeatureColumn }) {
+function Cell({ value, column }: { value: string | number | boolean; column: FeatureColumn }) {
   if (column.format === "status") return <StatusBadge status={String(value)} />;
   if (column.format === "currency") return <>{formatPKR(Number(value))}</>;
   if (column.format === "mono") {

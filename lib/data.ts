@@ -950,3 +950,25 @@ export const integrations = [
   { name: "SMS Gateway", type: "Notifications", status: "Connected", lastSync: "5 min ago", tone: "green" },
   { name: "Cloudflare R2", type: "Document storage", status: "Connected", lastSync: "Continuous", tone: "green" },
 ];
+export const serviceJobWorkflow = [
+  { id: "JC-3S-0849", plate: "LEB-4821", chassis: "MRHBF1660NP123456", engine: "L15B7-1234567", customer: "Bilal Ahmed", cnic: "35202-1234567-1", testDriveRef: "TD-3S-118", advisor: "Usman Tariq", pit: "Pit 03", inTime: "09:12", outTime: "10:02", estimatedMinutes: 30, accumulatedMinutes: 45, status: "In progress", cashGiven: 15000, cashMade: 28500, breakService: "Brake pad replacement", breakLeather: "Driver seat leather repair", thanksMessage: "Thanks for choosing Honda 3S Main", croReminder: "Service reminder in 2 days" },
+  { id: "JC-3S-0850", plate: "LEC-1180", chassis: "MRHBF1660NP654321", engine: "L15B7-7654321", customer: "Sana Malik", cnic: "35201-9876543-2", testDriveRef: "TD-3S-119", advisor: "Ayesha Khan", pit: "Pit 01", inTime: "10:05", outTime: "10:40", estimatedMinutes: 20, accumulatedMinutes: 20, status: "Ready", cashGiven: 8000, cashMade: 14200, breakService: "AC performance check", breakLeather: "None", thanksMessage: "Honda care completed successfully", croReminder: "Feedback call today" },
+  { id: "JC-2S-0198", plate: "LEA-9032", chassis: "MRHBF1660NP112233", engine: "L15B7-1122334", customer: "Engro Corp fleet", cnic: "35203-1122334-5", testDriveRef: "TD-2S-044", advisor: "Adeel Raza", pit: "Pit 02", inTime: "11:10", outTime: "11:35", estimatedMinutes: 40, accumulatedMinutes: 55, status: "Awaiting QC", cashGiven: 22000, cashMade: 41000, breakService: "Wheel alignment", breakLeather: "Steering leather wrap", thanksMessage: "Fleet service completed", croReminder: "Corporate statement update" },
+  { id: "JC-3S-0851", plate: "LEB-2026", chassis: "MRHBF1660NP998877", engine: "L15B7-9988776", customer: "Ali Hassan", cnic: "35204-9988776-3", testDriveRef: "TD-3S-120", advisor: "Fahad Mirza", pit: "Pit 05", inTime: "12:00", outTime: "12:50", estimatedMinutes: 35, accumulatedMinutes: 35, status: "Open", cashGiven: 0, cashMade: 0, breakService: "10,000 km service", breakLeather: "None", thanksMessage: "Pending customer approval", croReminder: "Estimate approval pending" },
+  { id: "JC-2S-0199", plate: "LEB-7788", chassis: "MRHBF1660NP445566", engine: "L15B7-4455667", customer: "Fatima Zahra", cnic: "35205-4455667-8", testDriveRef: "TD-2S-045", advisor: "Hira Sohail", pit: "Pit 04", inTime: "13:00", outTime: "13:20", estimatedMinutes: 15, accumulatedMinutes: 30, status: "Closed", cashGiven: 5000, cashMade: 9600, breakService: "Oil change", breakLeather: "None", thanksMessage: "Thanks for visiting Honda 2S City", croReminder: "Next service reminder set" },
+];
+
+export const hondaAuthorisedParts = [
+  { part: "Honda Genuine Engine Oil 0W-20", number: "HON-GEO-0W20", category: "Lubricants", stock3s: 120, stock2s: 80, cost: 9200, price: 11400, status: "Healthy", hondaAuthorised: true, companyScope: "Honda Atlas" },
+  { part: "Honda OEM Oil Filter Civic", number: "HON-OF-CIV", category: "Filters", stock3s: 60, stock2s: 45, cost: 1450, price: 1950, status: "Healthy", hondaAuthorised: true, companyScope: "Honda Atlas" },
+  { part: "Honda OEM Brake Pad Set City", number: "HON-BP-CITY", category: "Brakes", stock3s: 24, stock2s: 3, cost: 7800, price: 9800, status: "Critical", hondaAuthorised: true, companyScope: "Honda Atlas" },
+  { part: "Honda CVT Fluid 3.5L", number: "HON-CVT-35", category: "Lubricants", stock3s: 9, stock2s: 12, cost: 11500, price: 14200, status: "Low", hondaAuthorised: true, companyScope: "Honda Atlas" },
+  { part: "Aftermarket Wiper Blade 26\"", number: "AM-WB-26", category: "Accessories", stock3s: 16, stock2s: 4, cost: 2800, price: 3650, status: "Low", hondaAuthorised: false, companyScope: "Local vendor" },
+];
+
+export const croReminders = [
+  { id: "CRO-3S-018", customer: "Bilal Ahmed", vehicle: "Civic LEB-4821", trigger: "Job card opened", channel: "WhatsApp", message: "Your service job JC-3S-0849 is in progress", status: "Sent" },
+  { id: "CRO-3S-019", customer: "Sana Malik", vehicle: "City LEC-1180", trigger: "Ready for delivery", channel: "SMS", message: "Vehicle ready for pickup", status: "Sent" },
+  { id: "CRO-2S-007", customer: "Engro Corp fleet", vehicle: "City LEA-9032", trigger: "5 minutes remaining", channel: "WhatsApp", message: "Please arrive for delivery", status: "Scheduled" },
+  { id: "CRO-3S-020", customer: "Ali Hassan", vehicle: "Civic LEB-2026", trigger: "Estimate approval", channel: "Call", message: "Approve service estimate", status: "Pending" },
+];
