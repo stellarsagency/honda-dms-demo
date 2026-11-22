@@ -8,6 +8,7 @@ import {
   Truck,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
 import { PartsMovementChart } from "@/components/charts";
 import { partsKpis, lowStockParts, parts, purchaseOrders, partsMovement, partCompatibility, grns, stockTransfers, stockTakes, priceLists, stockAging, stockReturns, stockAdjustments, reorderSuggestions } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
@@ -424,6 +425,8 @@ export default function PartsPage() {
           </div>
         </Card>
       </div>
+
+      <FeatureSections module="parts" />
     </>
   );
 }

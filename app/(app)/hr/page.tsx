@@ -8,6 +8,8 @@ import {
   Users,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
+import { FeatureGate } from "@/components/feature-gate";
 import { HeadcountDonut, AttendanceChart } from "@/components/charts";
 import { hrKpis, employees, leaveRequests, attendanceTrend, departmentHeadcount, staffAttendance, monthlySalary, staffCreditReference } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
@@ -70,6 +72,7 @@ export default function HRPage() {
         </Card>
       </div>
 
+      <FeatureGate feature="hr.employees">
       <Card className="mt-5">
         <CardHeader
           title="Employees"
@@ -123,8 +126,10 @@ export default function HRPage() {
           </table>
         </div>
       </Card>
+      </FeatureGate>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="hr.leave">
         <Card className="lg:col-span-7">
           <CardHeader title="Leave requests" subtitle="Pending and recent leave applications" />
           <div className="table-wrap">
@@ -158,7 +163,9 @@ export default function HRPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="hr.payroll">
         <Card className="lg:col-span-5">
           <CardHeader title="Payroll summary" subtitle="November 2026" />
           <div className="space-y-3 p-5">
@@ -178,9 +185,11 @@ export default function HRPage() {
             <button className="btn-primary mt-3 w-full">Run payroll</button>
           </div>
         </Card>
+        </FeatureGate>
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="hr.attendance">
         <Card className="lg:col-span-6">
           <CardHeader title="Staff in/out" subtitle="Daily attendance and shift tracking" />
           <div className="table-wrap">
@@ -208,7 +217,9 @@ export default function HRPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="hr.payroll">
         <Card className="lg:col-span-6">
           <CardHeader title="Monthly salary" subtitle="Basic, allowance, deduction and net pay" />
           <div className="table-wrap">
@@ -238,8 +249,10 @@ export default function HRPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
       </div>
 
+      <FeatureGate feature="hr.staffCredit">
       <Card className="mt-5">
         <CardHeader title="Staff credit & reference" subtitle="Credit limit, used amount, reference and days" />
         <div className="table-wrap">
@@ -269,6 +282,9 @@ export default function HRPage() {
           </table>
         </div>
       </Card>
+      </FeatureGate>
+
+      <FeatureSections module="hr" />
     </>
   );
 }

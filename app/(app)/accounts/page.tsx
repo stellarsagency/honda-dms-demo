@@ -9,6 +9,8 @@ import {
   Send,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
+import { FeatureGate } from "@/components/feature-gate";
 import { CashflowChart, AgingChart } from "@/components/charts";
 import { accountsKpis, invoices, aging, cashflow, receipts, paymentAllocations, creditNotes, reminderLog, promiseToPay, cashierReconciliation, taxInvoices, paymentMethods, serviceSalesAccounts, cashBankPayOrder } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
@@ -381,6 +383,7 @@ export default function AccountsPage() {
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="accounts.serviceSales">
         <Card className="lg:col-span-6">
           <CardHeader title="Service & sales accounts" subtitle="Separate revenue accounts by branch" />
           <div className="table-wrap">
@@ -410,7 +413,9 @@ export default function AccountsPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="accounts.cashBank">
         <Card className="lg:col-span-6">
           <CardHeader title="Cash, bank, pay order & credit" subtitle="How much, which bank, days and reference" />
           <div className="table-wrap">
@@ -442,7 +447,10 @@ export default function AccountsPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
       </div>
+
+      <FeatureSections module="accounts" />
     </>
   );
 }

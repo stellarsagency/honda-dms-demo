@@ -9,6 +9,8 @@ import {
   Wrench,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar, Progress } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
+import { FeatureGate } from "@/components/feature-gate";
 import { serviceKpis, workshopBays, jobCards, appointments, serviceAppointments, preInspections, estimates, technicianProductivity, qualityChecks, gatePasses, warrantyClaims, serviceFeedback, serviceComplaints, technicianTime, reworkTracking, wheelAlignmentJobs, serviceCustomerProfiles, servicePayments, vehicleInOut, autoInvoices } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
@@ -444,6 +446,7 @@ export default function ServicePage() {
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="service.alignment">
         <Card className="lg:col-span-6">
           <CardHeader title="Wheel alignment jobs" subtitle="Opened on specific customer profile" />
           <div className="table-wrap">
@@ -473,7 +476,9 @@ export default function ServicePage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="service.profiles">
         <Card className="lg:col-span-6">
           <CardHeader title="Service customer profiles" subtitle="Preferred advisor, history, credit status" />
           <div className="table-wrap">
@@ -503,9 +508,11 @@ export default function ServicePage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
       </div>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="service.payments">
         <Card className="lg:col-span-6">
           <CardHeader title="Service payments" subtitle="Cash or card at service counter" />
           <div className="table-wrap">
@@ -535,7 +542,9 @@ export default function ServicePage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="service.vehicleInOut">
         <Card className="lg:col-span-6">
           <CardHeader title="Car in/out & auto invoice" subtitle="Gate pass, WhatsApp invoice, auto generation" />
           <div className="space-y-4 p-5">
@@ -565,6 +574,7 @@ export default function ServicePage() {
                 </tbody>
               </table>
             </div>
+            <FeatureGate feature="service.autoInvoice">
             <div className="table-wrap">
               <table className="data-table">
                 <thead>
@@ -591,9 +601,13 @@ export default function ServicePage() {
                 </tbody>
               </table>
             </div>
+            </FeatureGate>
           </div>
         </Card>
+        </FeatureGate>
       </div>
+
+      <FeatureSections module="service" />
     </>
   );
 }

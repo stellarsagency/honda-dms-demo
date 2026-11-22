@@ -28,47 +28,57 @@ import {
   X,
 } from "lucide-react";
 import { BranchProvider, useBranch } from "@/components/branch-context";
-import { UserProvider, useUser } from "@/components/user-context";
-import { branches, currentUser, notifications } from "@/lib/data";
+import { useUser } from "@/components/user-context";
+import { AccessGuard } from "@/components/access-guard";
+import { branches, notifications } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import type { Branch } from "@/lib/data";
+import type { ModuleKey } from "@/lib/access";
 
-const navSections = [
+type NavItem = {
+  href: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  module: ModuleKey;
+  salesOnly?: boolean;
+};
+
+const navSections: { label: string; items: NavItem[] }[] = [
   {
     label: "Overview",
     items: [
-      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-      { href: "/customers", label: "Customers & Vehicles", icon: Users },
+      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, module: "dashboard" },
+      { href: "/customers", label: "Customers & Vehicles", icon: Users, module: "customers" },
     ],
   },
   {
     label: "Operations",
     items: [
-      { href: "/service", label: "Service", icon: Wrench },
-      { href: "/sales", label: "Sales", icon: Car, salesOnly: true },
-      { href: "/parts", label: "Parts & Inventory", icon: Package },
+      { href: "/service", label: "Service", icon: Wrench, module: "service" },
+      { href: "/sales", label: "Sales", icon: Car, module: "sales", salesOnly: true },
+      { href: "/parts", label: "Parts & Inventory", icon: Package, module: "parts" },
     ],
   },
   {
     label: "Business",
     items: [
-      { href: "/corporate", label: "Corporate", icon: Building2 },
-      { href: "/accounts", label: "Accounts", icon: Wallet },
+      { href: "/corporate", label: "Corporate", icon: Building2, module: "corporate" },
+      { href: "/accounts", label: "Accounts", icon: Wallet, module: "accounts" },
     ],
   },
   {
     label: "People",
-    items: [{ href: "/hr", label: "Human Resources", icon: Users }],
+    items: [{ href: "/hr", label: "Human Resources", icon: Users, module: "hr" }],
   },
   {
     label: "Insights",
-    items: [{ href: "/reports", label: "Reports & Leakage", icon: BarChart3 }],
+    items: [{ href: "/reports", label: "Reports & Leakage", icon: BarChart3, module: "reports" }],
   },
   {
     label: "Administration",
     items: [
-      { href: "/admin", label: "Admin & Users", icon: ShieldCheck },
-      { href: "/settings", label: "Settings", icon: Settings },
+      { href: "/admin", label: "Admin & Users", icon: ShieldCheck, module: "admin" },
+      { href: "/settings", label: "Settings", icon: Settings, module: "settings" },
     ],
   },
 ];
@@ -84,6 +94,7 @@ const pageLabels: Record<string, string> = {
   "/reports": "Reports & Leakage",
   "/admin": "Admin & Users",
   "/settings": "Settings",
+  "/profile": "My Access",
 };
 
 function Brand() {
@@ -104,7 +115,7 @@ function Brand() {
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const { branch, is2S } = useBranch();
-  const { user, logout } = useUser();
+  const { user, logout, canAccessModule } = useUser();
 
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-obsidian via-ink-900 to-ink-800 text-slate-200">
@@ -134,7 +145,9 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
       <nav className="flex-1 overflow-y-auto px-3 py-3">
         {navSections.map((section) => {
-          const items = section.items.filter((item) => !(item.salesOnly && is2S));
+          const items = section.items.filter(
+            (item) => !(item.salesOnly && is2S) && canAccessModule(item.module),
+          );
           if (!items.length) return null;
           return (
             <div key={section.label} className="mb-4">
@@ -288,7 +301,7 @@ function NotificationMenu() {
 }
 
 function UserMenu() {
-  const { user, logout } = useUser();
+  const { user, logout, canAccessModule } = useUser();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -319,15 +332,19 @@ function UserMenu() {
             <p className="mt-0.5 text-[10px] text-slate-500">{user.email}</p>
           </div>
           <div className="p-1.5">
-            <Link href="/admin" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
-              <UserCog className="h-4 w-4 text-slate-400" /> My account
+            <Link href="/profile" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
+              <UserCog className="h-4 w-4 text-slate-400" /> My access
             </Link>
-            <Link href="/settings" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
-              <Settings className="h-4 w-4 text-slate-400" /> Settings
-            </Link>
-            <Link href="/reports" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
-              <FileText className="h-4 w-4 text-slate-400" /> Audit log
-            </Link>
+            {canAccessModule("settings") ? (
+              <Link href="/settings" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
+                <Settings className="h-4 w-4 text-slate-400" /> Settings
+              </Link>
+            ) : null}
+            {canAccessModule("reports") ? (
+              <Link href="/reports" className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50">
+                <FileText className="h-4 w-4 text-slate-400" /> Reports
+              </Link>
+            ) : null}
           </div>
           <div className="border-t border-slate-100 p-1.5">
             <Link href="/login" onClick={logout} className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-honda-600 hover:bg-honda-50">
@@ -344,21 +361,22 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
   const router = useRouter();
   const [query, setQuery] = useState("");
   const { is2S } = useBranch();
+  const { canAccessModule } = useUser();
 
-  const allItems = useMemo(
-    () =>
-      navSections
-        .flatMap((section) => section.items)
-        .filter((item) => !(item.salesOnly && is2S))
-        .concat([
-          { href: "/service", label: "Job Cards", icon: Wrench },
-          { href: "/service", label: "Workshop Board", icon: Wrench },
-          { href: "/accounts", label: "Invoices & Receivables", icon: Wallet },
-          { href: "/hr", label: "Payroll", icon: Users },
-          { href: "/reports", label: "Leakage Exceptions", icon: BarChart3 },
-        ]),
-    [is2S],
-  );
+  const allItems = useMemo(() => {
+    const extras: NavItem[] = [
+      { href: "/service", label: "Job Cards", icon: Wrench, module: "service" },
+      { href: "/service", label: "Wheel Alignment", icon: Wrench, module: "service" },
+      { href: "/accounts", label: "Invoices & Receivables", icon: Wallet, module: "accounts" },
+      { href: "/hr", label: "Payroll", icon: Users, module: "hr" },
+      { href: "/reports", label: "Leakage Exceptions", icon: BarChart3, module: "reports" },
+      { href: "/profile", label: "My Access", icon: ShieldCheck, module: "profile" },
+    ];
+    return navSections
+      .flatMap((section) => section.items)
+      .filter((item) => !(item.salesOnly && is2S) && canAccessModule(item.module))
+      .concat(extras.filter((item) => canAccessModule(item.module)));
+  }, [is2S, canAccessModule]);
 
   const filtered = allItems.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
 
@@ -433,7 +451,7 @@ function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () => void
         </button>
 
         <div className="hidden min-w-0 md:block">
-          <p className="text-[10px] font-medium text-slate-400">Honda Dealer DMS / {label}</p>
+          <p className="text-[10px] font-medium text-slate-600">Honda Dealer DMS / {label}</p>
           <p className="mt-0.5 text-[13px] font-bold text-slate-800">{label}</p>
         </div>
 
@@ -444,7 +462,7 @@ function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () => void
           >
             <Search className="h-3.5 w-3.5" />
             <span className="flex-1 truncate">Search anything...</span>
-            <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 text-[9px] font-semibold text-slate-400">⌘K</kbd>
+            <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 text-[9px] font-semibold text-slate-500">⌘K</kbd>
           </button>
           <button onClick={onSearch} className="icon-btn md:hidden" aria-label="Search">
             <Search className="h-[18px] w-[18px]" />
@@ -471,9 +489,28 @@ function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () => void
   );
 }
 
+function WorkspaceLoading() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-mist px-6">
+      <div className="flex flex-col items-center text-center">
+        <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-ruby-600 to-honda-700 text-2xl font-sans italic text-white shadow-[0_18px_40px_-16px_rgba(185,28,44,0.75)]">
+          H
+          <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-mist bg-emerald-400" />
+        </span>
+        <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">Honda Dealer DMS</p>
+        <p className="mt-2 text-sm font-semibold text-stone-700">Restoring your approved workspace…</p>
+        <span className="mt-4 h-1 w-36 overflow-hidden rounded-full bg-stone-200">
+          <span className="block h-full w-1/2 animate-pulse rounded-full bg-ruby-600" />
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const { hydrated } = useUser();
 
   useEffect(() => {
     function handler(event: KeyboardEvent) {
@@ -487,10 +524,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
+  if (!hydrated) return <WorkspaceLoading />;
+
   return (
-    <UserProvider>
-      <BranchProvider>
-        <div className="min-h-screen bg-mist">
+    <BranchProvider>
+      <div className="min-h-screen bg-mist">
         <aside className="fixed inset-y-0 left-0 z-50 hidden w-[260px] lg:block">
           <Sidebar />
         </aside>
@@ -514,9 +552,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="lg:pl-[260px]">
           <Topbar onMenu={() => setMobileOpen(true)} onSearch={() => setSearchOpen(true)} />
           <main className="mx-auto w-full max-w-[1600px] p-4 sm:p-6 lg:p-7">
-            <div className="animate-fade-up">{children}</div>
+            <div className="animate-fade-up">
+              <AccessGuard>{children}</AccessGuard>
+            </div>
           </main>
-          <footer className="mx-auto flex w-full max-w-[1600px] flex-wrap items-center justify-between gap-2 px-4 pb-6 text-[10px] text-slate-400 sm:px-6 lg:px-7">
+          <footer className="mx-auto flex w-full max-w-[1600px] flex-wrap items-center justify-between gap-2 px-4 pb-6 text-[10px] text-slate-600 sm:px-6 lg:px-7">
             <span>© 2026 Demo Honda Group · Dealer Management System</span>
             <span>Demo build 1.0 · All data is fictional</span>
           </footer>
@@ -525,6 +565,5 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <CommandPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
       </div>
     </BranchProvider>
-  </UserProvider>
   );
 }

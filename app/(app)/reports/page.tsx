@@ -6,6 +6,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
 import { ProfitChart, DepartmentRevenueBars } from "@/components/charts";
 import { reportKpis, leakageFlags, departmentRevenue } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
@@ -182,6 +183,8 @@ export default function ReportsPage() {
           </table>
         </div>
       </Card>
+
+      <FeatureSections module="reports" />
     </>
   );
 }

@@ -8,6 +8,8 @@ import {
   Users,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
+import { FeatureGate } from "@/components/feature-gate";
 import { SalesTargetChart, PipelineChart } from "@/components/charts";
 import { salesKpis, salesPipeline, bookings, vehicleInventory, salesTrend, leads, testDrives, quotations, pdiDeliveries, exchanges, salesTargets, salesCustomerProfiles, salesPayments } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
@@ -331,6 +333,7 @@ export default function SalesPage() {
       </Card>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="sales.profiles">
         <Card className="lg:col-span-6">
           <CardHeader title="Sales customer profiles" subtitle="Consultant, finance and delivery status" />
           <div className="table-wrap">
@@ -358,7 +361,9 @@ export default function SalesPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="sales.payments">
         <Card className="lg:col-span-6">
           <CardHeader title="Sales payments" subtitle="Booking payments by method" />
           <div className="table-wrap">
@@ -386,7 +391,10 @@ export default function SalesPage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
       </div>
+
+      <FeatureSections module="sales" />
     </>
   );
 }

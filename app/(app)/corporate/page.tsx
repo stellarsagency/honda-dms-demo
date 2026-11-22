@@ -6,6 +6,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
+import { FeatureGate } from "@/components/feature-gate";
 import { CorporateCollectionChart } from "@/components/charts";
 import { corporateAccounts, workOrders, corporateReceivables, mouRates, workOrderItems, corporateStatements, corporateMouLetters, corporateCarInOut, autoInvoices } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
@@ -251,6 +253,7 @@ export default function CorporatePage() {
       </Card>
 
       <div className="mt-5 grid gap-5 lg:grid-cols-12">
+        <FeatureGate feature="corporate.mouLetters">
         <Card className="lg:col-span-6">
           <CardHeader title="Corporate MOU letters" subtitle="Separate MOU, requirements and work order" />
           <div className="table-wrap">
@@ -280,7 +283,9 @@ export default function CorporatePage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
 
+        <FeatureGate feature="corporate.carInOut">
         <Card className="lg:col-span-6">
           <CardHeader title="Corporate car in/out" subtitle="Appointment and vehicle movement" />
           <div className="table-wrap">
@@ -310,8 +315,10 @@ export default function CorporatePage() {
             </table>
           </div>
         </Card>
+        </FeatureGate>
       </div>
 
+      <FeatureGate feature="corporate.autoInvoice">
       <Card className="mt-5">
         <CardHeader title="Auto invoice & WhatsApp" subtitle="Auto-generate invoice and send to client" />
         <div className="table-wrap">
@@ -341,6 +348,9 @@ export default function CorporatePage() {
           </table>
         </div>
       </Card>
+      </FeatureGate>
+
+      <FeatureSections module="corporate" />
     </>
   );
 }

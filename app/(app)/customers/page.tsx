@@ -9,6 +9,7 @@ import {
   Users,
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/components/ui";
+import { FeatureSections } from "@/components/feature-sections";
 import { customers, vehicles, customerHistory, duplicateCandidates } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
@@ -174,6 +175,8 @@ export default function CustomersPage() {
           </div>
         </Card>
       </div>
+
+      <FeatureSections module="customers" />
     </>
   );
 }
