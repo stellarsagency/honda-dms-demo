@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { StatCard, PageHeader, Card, CardHeader, StatusBadge } from "@/components/ui";
 import { FeatureSections } from "@/components/feature-sections";
+import { FeatureGate } from "@/components/feature-gate";
 import { HondaPartsView } from "@/components/honda-parts-view";
 import { PartsMovementChart } from "@/components/charts";
 import { partsKpis, lowStockParts, parts, purchaseOrders, partsMovement, partCompatibility, grns, stockTransfers, stockTakes, priceLists, stockAging, stockReturns, stockAdjustments, reorderSuggestions } from "@/lib/data";
@@ -427,7 +428,9 @@ export default function PartsPage() {
         </Card>
       </div>
 
-      <HondaPartsView />
+      <FeatureGate feature="parts.hondaAuthorised">
+        <HondaPartsView />
+      </FeatureGate>
 
       <FeatureSections module="parts" />
     </>

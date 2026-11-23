@@ -608,7 +608,9 @@ export default function ServicePage() {
         </FeatureGate>
       </div>
 
-      <ServiceJobWorkflow />
+      <FeatureGate feature="service.jobWorkflow">
+        <ServiceJobWorkflow />
+      </FeatureGate>
 
       <FeatureSections module="service" />
     </>
