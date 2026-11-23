@@ -9,7 +9,7 @@ import { StatCard, PageHeader, Card, CardHeader, StatusBadge, Avatar } from "@/c
 import { FeatureSections } from "@/components/feature-sections";
 import { FeatureGate } from "@/components/feature-gate";
 import { CorporateCollectionChart } from "@/components/charts";
-import { corporateAccounts, workOrders, corporateReceivables, mouRates, workOrderItems, corporateStatements, corporateMouLetters, corporateCarInOut, autoInvoices } from "@/lib/data";
+import { corporateAccounts, workOrders, corporateReceivables, mouRates, workOrderItems, corporateStatements, corporateMouLetters, corporateCarInOut, autoInvoices, serviceJobWorkflow } from "@/lib/data";
 import { formatPKR } from "@/lib/utils";
 
 export default function CorporatePage() {
@@ -349,6 +349,70 @@ export default function CorporatePage() {
         </div>
       </Card>
       </FeatureGate>
+
+      <Card className="mt-5">
+        <CardHeader
+          title="Service billing by job type"
+          subtitle="Mechanical vs Body Shop vs Insurance — cash, credit, corporate and insurance split for service revenue."
+        />
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Job type</th>
+                <th className="text-right">Jobs</th>
+                <th className="text-right">Cash</th>
+                <th className="text-right">Credit</th>
+                <th className="text-right">Corporate</th>
+                <th className="text-right">Insurance</th>
+                <th className="text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(["Mechanical", "Body Shop"] as const).map((type) => {
+                const rows = serviceJobWorkflow.filter((job) => job.jobType === type);
+                const cash = rows.reduce((sum, job) => sum + job.cashBill, 0);
+                const credit = rows.reduce((sum, job) => sum + job.creditBill, 0);
+                const corporate = rows.reduce((sum, job) => sum + job.corporateBill, 0);
+                const insurance = rows.reduce((sum, job) => sum + job.insuranceBill, 0);
+                const total = cash + credit + corporate + insurance;
+                return (
+                  <tr key={type}>
+                    <td className="font-semibold text-stone-800">{type}</td>
+                    <td className="text-right text-slate-600">{rows.length}</td>
+                    <td className="text-right text-slate-600">{formatPKR(cash)}</td>
+                    <td className="text-right text-slate-600">{formatPKR(credit)}</td>
+                    <td className="text-right text-slate-600">{formatPKR(corporate)}</td>
+                    <td className="text-right text-slate-600">{formatPKR(insurance)}</td>
+                    <td className="text-right font-bold text-stone-800">{formatPKR(total)}</td>
+                  </tr>
+                );
+              })}
+              {(() => {
+                const cash = serviceJobWorkflow.reduce((sum, job) => sum + job.cashBill, 0);
+                const credit = serviceJobWorkflow.reduce((sum, job) => sum + job.creditBill, 0);
+                const corporate = serviceJobWorkflow.reduce((sum, job) => sum + job.corporateBill, 0);
+                const insurance = serviceJobWorkflow.reduce((sum, job) => sum + job.insuranceBill, 0);
+                const total = cash + credit + corporate + insurance;
+                return (
+                  <tr className="bg-stone-50/60">
+                    <td className="font-bold text-stone-900">Total service</td>
+                    <td className="text-right font-bold text-stone-900">{serviceJobWorkflow.length}</td>
+                    <td className="text-right font-bold text-stone-900">{formatPKR(cash)}</td>
+                    <td className="text-right font-bold text-stone-900">{formatPKR(credit)}</td>
+                    <td className="text-right font-bold text-stone-900">{formatPKR(corporate)}</td>
+                    <td className="text-right font-bold text-stone-900">{formatPKR(insurance)}</td>
+                    <td className="text-right font-bold text-stone-900">{formatPKR(total)}</td>
+                  </tr>
+                );
+              })()}
+            </tbody>
+          </table>
+        </div>
+        <div className="border-t border-stone-100 bg-stone-50/60 px-5 py-3 text-[10px] text-slate-500">
+          Insurance claims are tracked as a separate billing type. Corporate billing is grouped by Mechanical vs Body Shop so management can see which service stream drives revenue.
+        </div>
+      </Card>
 
       <FeatureSections module="corporate" />
     </>
