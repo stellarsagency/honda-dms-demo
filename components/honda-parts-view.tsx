@@ -31,11 +31,11 @@ export function HondaPartsView() {
         title="Honda authorised parts view"
         subtitle="Special company-authorised users can view only the Honda Atlas parts and stock required for dealership operations."
         action={
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="relative hidden sm:block">
+          <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
+            <div className="relative w-full sm:w-44">
               <Filter className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
               <input
-                className="field h-9 w-44 pl-9 text-xs"
+                className="field h-9 w-full pl-9 text-xs sm:w-44"
                 placeholder="Search authorised part..."
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}

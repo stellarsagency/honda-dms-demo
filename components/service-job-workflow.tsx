@@ -24,10 +24,10 @@ export function ServiceJobWorkflow() {
         title="Job card workflow, pit & time"
         subtitle="Search by plate, chassis, engine, customer, CNIC or test-drive number. Pit time is added automatically when a previous job is still running."
         action={
-          <div className="relative hidden sm:block">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
             <input
-              className="field h-9 w-64 pl-9 text-xs"
+              className="field h-9 w-full pl-9 text-xs sm:w-64"
               placeholder="Search plate, chassis, engine..."
               value={query}
               onChange={(event) => setQuery(event.target.value)}
